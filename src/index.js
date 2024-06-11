@@ -6,8 +6,7 @@ const app = express();
 dotenv.config({ path: './config.env' }); 
 app.use(express.urlencoded({ extended: true }));
 var bodyParser = require('body-parser');
-const User =require('./routes/user')
-const News=require('./routes/news');
+const apiRoutes=require('./routes/index');
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
 if (!process.env.CONN_STR) {
@@ -30,9 +29,7 @@ app.listen(process.env.PORT, () => {
 });
 
 
-
-app.use('/api',User);
-app.use('/api',News);
+app.use('/api',apiRoutes);
 
 app.listen(3001, () => {
     console.log('Server is running on port 3001.');
