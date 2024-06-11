@@ -11,7 +11,7 @@ class OfficialService {
 
     async getAllOfficials() {
         try {
-            return await officialRepository.findAll();
+            return await officialRepository.getAll();
         } catch (error) {
             throw new Error(`Service error: ${error.message}`);
         }
@@ -19,7 +19,7 @@ class OfficialService {
 
     async getOfficialById(id) {
         try {
-            const official = await officialRepository.findById(id);
+            const official = await officialRepository.get(id);
             if (!official) {
                 throw new Error('Official not found');
             }
@@ -31,7 +31,7 @@ class OfficialService {
 
     async updateOfficial(id, updateData) {
         try {
-            const official = await officialRepository.updateById(id, updateData);
+            const official = await officialRepository.update(id, updateData);
             if (!official) {
                 throw new Error('Official not found');
             }
@@ -43,7 +43,7 @@ class OfficialService {
 
     async deleteOfficial(id) {
         try {
-            const official = await officialRepository.deleteById(id);
+            const official = await officialRepository.destroy(id);
             if (!official) {
                 throw new Error('Official not found');
             }

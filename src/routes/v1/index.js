@@ -4,6 +4,8 @@ const officialController = require('../../controllers/officials-details-controll
 const checkDuplicateEmail = require('../../middlewares/checkDuplicateEmail');
 const domainController= require('../../controllers/domain-controller.js');
 const resourceController=require('../../controllers/resources-controller.js');
+const projectController=require('../../controllers/project-controller.js');
+const contactForumController=require('../../controllers/contactForum-controller.js');
 const { signup,login } =require('../../controllers/user-controller.js');
 
 
@@ -31,22 +33,26 @@ router.delete('/officials/:id', officialController.deleteOfficial);
 
 // Rewsources Routes
 router.post('/resource', (req, res) => resourceController.createResource(req, res));
-
-// Get all resources
 router.get('/resources', (req, res) => resourceController.getAllResources(req, res));
-
-// Get resource by ID
 router.get('/resource/:id', (req, res) => resourceController.getResourceById(req, res));
-
-// Get resources by domain ID
 router.get('/resource/:domainId', (req, res) => resourceController.getResourcesByDomain(req, res));
-
-// Update resource by ID
 router.put('/resource/:id', (req, res) => resourceController.updateResource(req, res));
-
-// Delete resource by ID
 router.delete('/resource/:id', (req, res) => resourceController.deleteResource(req, res));
 
+//Project Routes
+router.post('/project', projectController.createProject);
+router.get('/projects', projectController.getAllProjects);
+router.get('/project/:id', projectController.getProjectById);
+router.put('/project/:id', projectController.updateProject);
+router.delete('/project/:id', projectController.deleteProject);
+router.get('/project/:domainId', projectController.findProjectsByDomain);
 
+//ContactForum Routes
+router.post('/contact-forum', contactForumController.createContactForum);
+router.get('/contact-forums', contactForumController.getAllContactForums);
+router.get('/contact-forum/:id', contactForumController.getContactForumById);
+router.put('/contact-forum/:id', contactForumController.updateContactForum);
+router.delete('/contact-forum/:id', contactForumController.deleteContactForum);
+router.get('/contact-forums/:domainId', contactForumController.getAllContactForumsByDomain);
 
 module.exports = router;
