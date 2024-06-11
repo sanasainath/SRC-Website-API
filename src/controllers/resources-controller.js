@@ -1,30 +1,5 @@
-const mongoose = require('mongoose');
-const ResourceService = require("../services/resources-service");
-const Schema = mongoose.Schema;
+const ResourceService = require('../services/resources-service');
 
-const officialSchema = new Schema({
-    name: { type: String, required: true },
-    title: { type: String, required: true },
-    photo: { type: String }, // URL to the photo
-    email: { type: String, required: true,unique:true },
-    phoneNumber: { type: String },
-    officeAddress: { type: String },
-    department: { type: String, required: true },
-    bio: { type: String },
-    qualifications: { type: String },
-    experience: { type: String },
-    responsibilities: { type: String },
-    projects: { type: String },
-    linkedin: { type: String },
-    researchgate: { type: String },
-    twitter: { type: String },
-    dateJoined: { type: Date },
-    lastUpdated: { type: Date, default: Date.now }
-});
-
-const Official = mongoose.model('Official', officialSchema);
-
-module.exports = Official;
 class ResourceController {
     constructor() {
         this.resourceService = new ResourceService();
@@ -86,4 +61,5 @@ class ResourceController {
         }
     }
 }
-exports.ResourceController = ResourceController;
+
+module.exports = new ResourceController();
