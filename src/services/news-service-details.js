@@ -11,7 +11,7 @@ class NewsService {
 
     async getAllNews() {
         try {
-            return await newsRepository.findAll();
+            return await newsRepository.getAll();
         } catch (error) {
             throw new Error(`Service error: ${error.message}`);
         }
@@ -19,7 +19,7 @@ class NewsService {
 
     async getNewsById(id) {
         try {
-            const news = await newsRepository.findById(id);
+            const news = await newsRepository.get(id);
             if (!news) {
                 throw new Error('News not found');
             }
@@ -31,7 +31,7 @@ class NewsService {
 
     async updateNews(id, updateData) {
         try {
-            const news = await newsRepository.updateById(id, updateData);
+            const news = await newsRepository.update(id, updateData);
             if (!news) {
                 throw new Error('News not found');
             }
@@ -43,7 +43,7 @@ class NewsService {
 
     async deleteNews(id) {
         try {
-            const news = await newsRepository.deleteById(id);
+            const news = await newsRepository.destroy(id);
             if (!news) {
                 throw new Error('News not found');
             }
