@@ -3,7 +3,7 @@ const dotenv = require("dotenv");
 const path = require("path");
 const mongoose = require('mongoose');
 const app = express();
-dotenv.config({ path: './config.env' }); 
+dotenv.config({ path: './config/config.env' }); 
 app.use(express.urlencoded({ extended: true }));
 var bodyParser = require('body-parser');
 const apiRoutes=require('./routes/index');
