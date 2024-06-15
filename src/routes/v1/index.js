@@ -1,8 +1,12 @@
 const express = require('express');
 const router = express.Router();
+
+// Your controllers
 const newsController = require('../../controller/news-details-controller.js');
 const testimonialController = require('../../controller/testimonials-controller');
 const userProfileController = require('../../controller/user-profile-controller');
+const officialController = require('../../controllers/officials-details-controller');
+const checkDuplicateEmail = require('../../middlewares/checkDuplicateEmail');
 
 // News routes
 router.get('/news', newsController.getAllNews);
@@ -24,5 +28,12 @@ router.get('/profiles/:id', userProfileController.getUserProfileById);
 router.post('/profiles/create', userProfileController.createUserProfile);
 router.put('/profiles/update/:id', userProfileController.updateUserProfile);
 router.delete('/profiles/delete/:id', userProfileController.deleteUserProfile);
+
+// Officials routes
+router.post('/officials', checkDuplicateEmail, officialController.createOfficial);
+router.get('/officials', officialController.getAllOfficials);
+router.get('/officials/:id', officialController.getOfficialById);
+router.put('/officials/:id', officialController.updateOfficial);
+router.delete('/officials/:id', officialController.deleteOfficial);
 
 module.exports = router;

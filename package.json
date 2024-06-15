@@ -4,7 +4,8 @@
   "description": "SRC Website api",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "npx nodemon src/index.js"
   },
   "author": "SRC team (Strivers)",
   "license": "ISC",
@@ -18,7 +19,9 @@
     "jsonwebtoken": "^9.0.2",
     "mongodb": "^6.7.0",
     "mongoose": "^8.4.1",
-    "multer": "^1.4.5-lts.1"
+    "multer": "^1.4.5-lts.1",
+    "body-parser": "^1.20.2",
+    "nodemon": "^3.1.0"
   },
   "keywords": []
 }
