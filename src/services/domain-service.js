@@ -1,4 +1,4 @@
-const DomainRepository = require('../repository/domain-repository');
+const {DomainRepository} = require('../repository/index');
 
 class DomainService {
     constructor() {

@@ -1,5 +1,5 @@
 const CrudRepository = require('./crud-repository');
-const ContactForum = require('../models/contactForum-model');
+const {ContactForum} = require('../models/index');
 
 class ContactForumRepository extends CrudRepository {
     constructor() {

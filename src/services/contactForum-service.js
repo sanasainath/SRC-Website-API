@@ -1,4 +1,4 @@
-const ContactForumRepository = require('../repository/contactForum-repository');
+const {ContactForumRepository} = require('../repository/index');
 
 class ContactForumService {
     constructor() {

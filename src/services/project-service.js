@@ -1,4 +1,4 @@
-const ProjectRepository = require('../repository/project-repository');
+const {ProjectRepository} = require('../repository/index');
 
 class ProjectService {
     constructor() {

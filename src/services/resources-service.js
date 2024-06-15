@@ -1,4 +1,4 @@
-const ResourceRepository = require('../repository/resources-repository');
+const {ResourceRepository} = require('../repository/index');
 
 class ResourceService {
     constructor() {
@@ -55,3 +55,4 @@ class ResourceService {
 }
 
 module.exports = ResourceService;
+ 

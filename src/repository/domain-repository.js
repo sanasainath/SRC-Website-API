@@ -1,4 +1,4 @@
-const Domain = require('../models/domain-model');
+const {Domain} = require('../models/index');
 const CrudRepository = require('./crud-repository');
 
 class DomainRepository extends CrudRepository {

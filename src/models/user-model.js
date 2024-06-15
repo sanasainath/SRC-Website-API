@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
-
+const {JWT_KEY}=require('../config/serverConfig');
 const userSchema = new mongoose.Schema({
     email: {
         type: String,
@@ -19,13 +19,7 @@ const userSchema = new mongoose.Schema({
     collegeId: {
         type: String,
         required: true,
-        unique: true,
-        validate: {
-            validator: function(v) {
-                return v.length === 7;
-            },
-            message: props => `${props.value} is not 7 characters long!`
-        }
+        unique: true
     },
     role: {
         type: String,
@@ -49,7 +43,7 @@ userSchema.methods.comparePassword = function compare(password) {
 }
 
 userSchema.methods.genJWT = function generate() {
-    return jwt.sign({ id: this.id, email: this.email, role: this.role }, 'twitter_key', {
+    return jwt.sign({ id: this.id, email: this.email, role: this.role }, JWT_KEY, {
         expiresIn: '1h'
     });
 }

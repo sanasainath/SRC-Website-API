@@ -1,11 +1,7 @@
 const express = require('express');
 const router = express.Router();
-const officialController = require('../../controllers/officials-details-controller');
+const {officialController,domainController,resourceController,projectController,contactForumController} = require('../../controllers/index.js');
 const checkDuplicateEmail = require('../../middlewares/checkDuplicateEmail');
-const domainController= require('../../controllers/domain-controller.js');
-const resourceController=require('../../controllers/resources-controller.js');
-const projectController=require('../../controllers/project-controller.js');
-const contactForumController=require('../../controllers/contactForum-controller.js');
 const { signup,login } =require('../../controllers/user-controller.js');
 
 

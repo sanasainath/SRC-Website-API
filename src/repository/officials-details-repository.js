@@ -1,4 +1,4 @@
-const Official = require('../models/officials-details-model');
+const {Official} = require('../models/index');
 const CrudRepository = require('./crud-repository');
 
 class OfficialRepository extends CrudRepository{
@@ -7,4 +7,4 @@ class OfficialRepository extends CrudRepository{
    }
 }
 
-module.exports = new OfficialRepository();
+module.exports = OfficialRepository;

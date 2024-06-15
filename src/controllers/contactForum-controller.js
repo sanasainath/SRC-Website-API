@@ -1,4 +1,4 @@
-const ContactForumService = require('../services/contactForum-service');
+const {ContactForumService} = require('../services/index');
 
 class ContactForumController {
     constructor() {

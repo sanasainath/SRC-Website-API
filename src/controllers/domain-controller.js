@@ -1,4 +1,4 @@
-const DomainService = require('../services/domain-service');
+const {DomainService} = require('../services/index');
 
 class DomainController {
     constructor() {

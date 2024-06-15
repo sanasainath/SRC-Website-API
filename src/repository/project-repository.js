@@ -1,4 +1,4 @@
-const Project = require('../models/project-model');
+const {Project} = require('../models/index');
 const CrudRepository = require('./crud-repository');
 
 class ProjectRepository extends CrudRepository {
