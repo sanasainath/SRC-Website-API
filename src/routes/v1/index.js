@@ -5,7 +5,7 @@ const router = express.Router();
 const newsController = require('../../controller/news-details-controller.js');
 const testimonialController = require('../../controller/testimonials-controller');
 const userProfileController = require('../../controller/user-profile-controller');
-const officialController = require('../../controllers/officials-details-controller');
+const officialController = require('../../controller/officials-details-controller.js');
 const checkDuplicateEmail = require('../../middlewares/checkDuplicateEmail');
 
 // News routes
