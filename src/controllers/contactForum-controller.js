@@ -8,20 +8,36 @@ class ContactForumController {
     createContactForum=async (req, res)=> {
         try {
             const contactForum = await this.contactForumService.createContactForum(req.body);
-            res.status(201).json(contactForum);
+            res.status(201).json({
+                data:contactForum,
+                success:true,
+                message:'Successfully created',
+                err:{}
+            });
         } catch (error) {
             console.error('Controller: Error creating contact forum:', error.message);
-            res.status(500).json({ message: 'Failed to create contact forum', error: error.message });
+            res.status(500).json({
+                 message: 'Failed to create contact forum', 
+                 error: error.message
+            });
         }
     }
 
     getAllContactForums=async (req, res)=> {
         try {
             const contactForums = await this.contactForumService.getAllContactForums();
-            res.status(200).json(contactForums);
+            res.status(200).json({
+                data:contactForums,
+                success:true,
+                message:'Successfully tetched',
+                err:{}
+            });
         } catch (error) {
             console.error('Controller: Error fetching all contact forums:', error.message);
-            res.status(500).json({ message: 'Failed to fetch contact forums', error: error.message });
+            res.status(500).json({
+                 message: 'Failed to fetch contact forums',
+                  error: error.message
+            });
         }
     }
 

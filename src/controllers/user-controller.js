@@ -8,7 +8,6 @@ const signup = async (req, res) => {
             email: req.body.email,
             password: req.body.password,
             name: req.body.name,
-            collegeId:req.body.collegeId,
             role:req.body.role
         });
         return res.status(201).json({
@@ -22,7 +21,7 @@ const signup = async (req, res) => {
             success: false,
             data: {},
             message: "Something went wrong",
-            err: error
+            err: error.message
         });
     }
 }
@@ -47,7 +46,28 @@ const login = async (req, res) => {
     }
 }
 
+const verify=async (req,res)=>{
+    try {
+        const token=req.params.token;
+        const response=await userService.verifyUser(token);
+        return res.status(201).json({
+            success:true,
+            err:{},
+            data:response,
+            message:response.message
+        });
+    } catch (error) {
+        return res.status(500).json({
+            success:false,
+            message:"Something went wrong,123",
+            data:{},
+            err:error.message
+        });
+    }
+}
+
 module.exports = {
     signup,
-    login
+    login,
+    verify
 };
