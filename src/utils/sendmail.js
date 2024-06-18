@@ -9,8 +9,14 @@ const transporter = nodemailer.createTransport({
     }
 });
 
- async function sendVerificationEmail(to, token) {
-    const url = `http://localhost:3001/api/v1/verify/${token}`;
+ async function sendVerificationEmail(to,token,flag) {
+    var url='';
+    if(flag=='verify'){
+        url = `http://localhost:3001/api/v1/verify/${token}`;
+    }
+    else{
+        url = `http://localhost:3001/api/v1/reset/password/${token}`;
+    }
 
     const mailOptions = {
         from: 'airlineremainder@gmail.com',

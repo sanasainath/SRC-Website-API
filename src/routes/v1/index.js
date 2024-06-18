@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 const {officialController,domainController,resourceController,projectController,contactForumController} = require('../../controllers/index.js');
 const checkDuplicateEmail = require('../../middlewares/checkDuplicateEmail');
-const { signup,login,verify } =require('../../controllers/user-controller.js');
+const { signup,login,verify,passwordResetLink,updatePassword} =require('../../controllers/user-controller.js');
 const {UserService}=require('../../services/index.js');
 
 const userService=new UserService();
@@ -20,6 +20,8 @@ router.delete('/domain/:id', (req, res) => domainController.deleteDomain(req, re
 router.post('/signup',signup);
 router.post('/login',login);
 router.get('/verify/:token',verify);
+router.get('/forgot/password',passwordResetLink);
+router.patch('/reset/password/:token',updatePassword);
 
 //Officials Routes:
 router.post('/officials',checkDuplicateEmail,officialController.createOfficial);

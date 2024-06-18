@@ -65,9 +65,48 @@ const verify=async (req,res)=>{
         });
     }
 }
+const passwordResetLink=async (req,res)=>{
+    try {;
+        const response=await userService.sendResetLink(req.body.email);
+        return res.status(201).json({
+            success:true,
+            err:{},
+            data:response,
+            message:response.message
+        });
+    } catch (error) {
+        return res.status(500).json({
+            success:false,
+            message:"Something went wrong,123",
+            data:{},
+            err:error.message
+        });
+    }
+}
+const updatePassword=async (req,res)=>{
+    try {
+        const password=req.body.password;
+        const response=await userService.resetPassword(req.params.token,password);
+        return res.status(201).json({
+            success:true,
+            err:{},
+            data:response,
+            message:response.message
+        });
+    } catch (error) {
+        return res.status(500).json({
+            success:false,
+            message:"Something went wrong,123",
+            data:{},
+            err:error.message
+        });
+    }
+}
 
 module.exports = {
     signup,
     login,
-    verify
+    verify,
+    passwordResetLink,
+    updatePassword
 };

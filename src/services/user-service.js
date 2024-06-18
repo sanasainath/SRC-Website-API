@@ -77,6 +77,44 @@ class UserService {
             throw error;
         }
     }
+    async sendResetLink(email) {
+        try {
+            const isExists = await this.getUserByEmail(email);
+            if (isExists && isExists.isVerified) {
+                const flag='link'
+                const token = isExists.genJWT();
+                await sendVerificationEmail(email, token,flag);
+                return  { message: 'Password Reset link sent to your email'};
+            }
+            else {
+                throw { message: 'No User Exists ,Email is not registered/verified'};
+            }     
+        } catch (error) {
+            console.log(error);
+            throw error;
+        }
+    }
+
+    async resetPassword(token,new_password) {
+        try {
+            const decoded = jwt.verify(token,JWT_KEY);
+            const user = await this.userRepository.get(decoded._id);
+            if (!user) throw new Error('User not found');
+            user.password= new_password;
+            await user.save();
+            return user;
+        } catch (error) {
+            // if(error.message=='User already verified'){
+            //     throw new Error('User already verified');
+            // }
+            // if (error.name === 'TokenExpiredError') {
+            //     throw new Error('Token has expired');
+            // } else {
+            //     throw new Error('Invalid token');
+            // }
+            throw error;
+        }
+    }
 
 }
 
