@@ -1,9 +1,13 @@
-const officialRepository = require('../repository/officials-details-repository');
+const {OfficialRepository} = require('../repository/index');
 
 class OfficialService {
+    constructor() {
+        this.officialRepository = new OfficialRepository();
+    }
+
     async createOfficial(officialData) {
         try {
-            return await officialRepository.create(officialData);
+            return await this.officialRepository.create(officialData);
         } catch (error) {
             throw new Error(`Service error: ${error.message}`);
         }
@@ -11,7 +15,7 @@ class OfficialService {
 
     async getAllOfficials() {
         try {
-            return await officialRepository.findAll();
+            return await this.officialRepository.getAll();
         } catch (error) {
             throw new Error(`Service error: ${error.message}`);
         }
@@ -19,7 +23,7 @@ class OfficialService {
 
     async getOfficialById(id) {
         try {
-            const official = await officialRepository.findById(id);
+            const official = await this.officialRepository.get(id);
             if (!official) {
                 throw new Error('Official not found');
             }
@@ -31,7 +35,7 @@ class OfficialService {
 
     async updateOfficial(id, updateData) {
         try {
-            const official = await officialRepository.updateById(id, updateData);
+            const official = await this.officialRepository.update(id, updateData);
             if (!official) {
                 throw new Error('Official not found');
             }
@@ -43,7 +47,7 @@ class OfficialService {
 
     async deleteOfficial(id) {
         try {
-            const official = await officialRepository.deleteById(id);
+            const official = await this.officialRepository.destroy(id);
             if (!official) {
                 throw new Error('Official not found');
             }
@@ -54,4 +58,4 @@ class OfficialService {
     }
 }
 
-module.exports = new OfficialService();
+module.exports = OfficialService;
