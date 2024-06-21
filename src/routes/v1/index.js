@@ -7,6 +7,8 @@ const testimonialController = require('../../controller/testimonials-controller'
 const userProfileController = require('../../controller/user-profile-controller');
 const officialController = require('../../controller/officials-details-controller.js');
 const checkDuplicateEmail = require('../../middlewares/checkDuplicateEmail');
+const eventController=require('../../controller/events-details-controller.js');
+
 
 // News routes
 router.get('/news', newsController.getAllNews);
