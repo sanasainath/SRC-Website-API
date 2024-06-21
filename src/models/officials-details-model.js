@@ -5,7 +5,7 @@ const officialSchema = new Schema({
     name: { type: String, required: true },
     title: { type: String, required: true },
     photo: { type: String }, // URL to the photo
-    email: { type: String, required: true },
+    email: { type: String, required: true,unique:true },
     phoneNumber: { type: String },
     officeAddress: { type: String },
     department: { type: String, required: true },

@@ -1,12 +1,14 @@
 const express = require("express");
 const bodyParser=require('body-parser');
 const app = express();
-const dotenv = require("dotenv").config();
-const PORT=process.env.PORT;
+const {PORT}=require('./config/serverConfig');
 
 const cors = require('cors');  // Import the CORS middleware
 app.use(cors());  // Use the CORS middleware
 
+
+
+ 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended:true}));
 
