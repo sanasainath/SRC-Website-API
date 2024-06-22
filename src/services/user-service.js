@@ -49,7 +49,7 @@ class UserService {
     async verifyUser(token) {
         try {
             const decoded = jwt.verify(token,JWT_KEY);
-            const user = await this.userRepository.get(decoded._id);
+            const user = await this.userRepository.get(decoded._id);    
             if (!user) throw new Error('User not found');
 
             if (user.isVerified) {

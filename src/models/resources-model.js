@@ -7,7 +7,7 @@ const resourceSchema = new Schema({
     description: { type: String },
     url: { type: String, required: true },
     type: { type: String, required: true }, // e.g., 'pdf', 'image', 'document'
-    domain: { type: ObjectId, ref: 'Domain', required: true }, // Reference to Domain model
+    domainId: { type: ObjectId, ref: 'Domain', required: true }, // Reference to Domain model
    
 },{timestamps:true});
 

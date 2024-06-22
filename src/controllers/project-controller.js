@@ -8,7 +8,10 @@ class ProjectController {
     createProject = async (req, res) => {
         try {
             const project = await this.projectService.createProject(req.body);
-            res.status(201).json(project);
+            res.status(201).json({
+                success:true,
+                message:'Successfully Created'
+            });
         } catch (error) {
             console.error('Controller: Error creating project:', error.message);
             res.status(500).json({ message: 'Failed to create project', error: error.message });

@@ -39,7 +39,7 @@ router.delete('/officials/:id', officialController.deleteOfficial);
 router.post('/resource',  authenticate,authorizeAdmin,(req, res) => resourceController.createResource(req, res));
 router.get('/resources',(req, res) => resourceController.getAllResources(req, res));
 router.get('/resource/:id',(req, res) => resourceController.getResourceById(req, res));
-router.get('/resource/:domainId',(req, res) => resourceController.getResourcesByDomain(req, res));
+router.get('/resources/:domainId',(req, res) => resourceController.getResourcesByDomain(req, res));
 router.put('/resource/:id', authenticate,authorizeAdmin, (req, res) => resourceController.updateResource(req, res));
 router.delete('/resource/:id',  authenticate,authorizeAdmin,(req, res) => resourceController.deleteResource(req, res));
 

@@ -4,7 +4,7 @@ const Schema = mongoose.Schema;
 const projectSchema = new Schema({
     name: { type: String, required: true },
     description: { type: String, required: true },
-    domain: { type: Schema.Types.ObjectId, ref: 'Domain'},
+    domainId: { type: Schema.Types.ObjectId, ref: 'Domain'},
     contributors: [{ type: Schema.Types.ObjectId, ref: 'User' }],
     githubLink: { type: String },
     demoLink: { type: String },

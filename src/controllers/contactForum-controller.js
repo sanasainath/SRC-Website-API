@@ -16,7 +16,7 @@ class ContactForumController {
             });
         } catch (error) {
             console.error('Controller: Error creating contact forum:', error.message);
-            res.status().json({
+            res.status(500).json({
                  message: 'Failed to create contact forum', 
                  error: error.message
             });
@@ -64,7 +64,10 @@ class ContactForumController {
     deleteContactForum=async (req, res)=> {
         try {
             await this.contactForumService.deleteContactForum(req.params.id);
-            res.status(204).end();
+            res.status(200).json({
+                success:true,
+                message:'Successfully Deleted'
+            });
         } catch (error) {
             console.error('Controller: Error deleting contact forum:', error.message);
             res.status(500).json({ message: 'Failed to delete contact forum', error: error.message });
