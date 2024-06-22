@@ -1,11 +1,35 @@
 const express = require('express');
 const router = express.Router();
-const {officialController,domainController,resourceController,projectController,contactForumController} = require('../../controllers/index.js');
+const {officialController,domainController,resourceController,projectController,contactForumController,NewsController,TestimonialController,UserProfileController} = require('../../controller/index.js');
 const checkDuplicateEmail = require('../../middlewares/checkDuplicateEmail');
-const { signup,login,verify,passwordResetLink,updatePassword} =require('../../controllers/user-controller.js');
+const { signup,login,verify,passwordResetLink,updatePassword} =require('../../controller/user-controller.js');
 const {UserService}=require('../../services/index.js');
 const {validateUserAuth,validateisAdminId}=require('../../middlewares/auth-request-validators.js');
 const { authenticate,authorizeAdmin } = require('../../middlewares/authorization.js');
+
+
+// News routes
+router.get('/news', NewsController.getAllNews);
+router.get('/news/by/:id', NewsController.getNewsById);
+router.post('/create/news', NewsController.createNews);
+router.put('/update/news/:id', NewsController.updateNews);
+router.delete('/delete/news/:id', NewsController.deleteNews);
+
+// Testimonials routes
+router.get('/testimonials', TestimonialController.getAllTestimonials);
+router.get('/testimonials/by/:id', TestimonialController.getTestimonialById);
+router.post('/testimonials/create', TestimonialController.createTestimonial);
+router.put('/testimonials/update/:id', TestimonialController.updateTestimonial);
+router.delete('/testimonials/delete/:id', TestimonialController.deleteTestimonial);
+
+// User Profile routes
+router.get('/profiles', UserProfileController.getAllUserProfiles);
+router.get('/profiles/:id', UserProfileController.getUserProfileById);
+router.post('/profiles/create', UserProfileController.createUserProfile);
+router.put('/profiles/update/:id', UserProfileController.updateUserProfile);
+router.delete('/profiles/delete/:id', UserProfileController.deleteUserProfile);
+
+
 
 const userService=new UserService();
 
