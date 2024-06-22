@@ -48,7 +48,10 @@ class ProjectController {
     deleteProject = async (req, res) => {
         try {
             await this.projectService.deleteProject(req.params.id);
-            res.status(204).end();
+            res.status(204).json({
+                success:true,
+                message:'Deleted'
+            });
         } catch (error) {
             console.error('Controller: Error deleting project:', error.message);
             res.status(500).json({ message: 'Failed to delete project', error: error.message });

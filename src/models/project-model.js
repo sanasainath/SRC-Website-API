@@ -8,8 +8,7 @@ const projectSchema = new Schema({
     contributors: [{ type: Schema.Types.ObjectId, ref: 'User' }],
     githubLink: { type: String },
     demoLink: { type: String },
-    createdAt: { type: Date, default: Date.now }
-});
+},{timestamps:true});
 
 const Project = mongoose.model('Project', projectSchema);
 

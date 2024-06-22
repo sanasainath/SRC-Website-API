@@ -8,8 +8,8 @@ const resourceSchema = new Schema({
     url: { type: String, required: true },
     type: { type: String, required: true }, // e.g., 'pdf', 'image', 'document'
     domain: { type: ObjectId, ref: 'Domain', required: true }, // Reference to Domain model
-    uploadedAt: { type: Date, default: Date.now }
-});
+   
+},{timestamps:true});
 
 const Resource = mongoose.model('Resource', resourceSchema);
 

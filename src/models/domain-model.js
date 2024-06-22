@@ -4,8 +4,8 @@ const Schema = mongoose.Schema;
 const domainSchema = new Schema({
     name: { type: String, required: true, unique: true },
     description: { type: String },
-    createdAt: { type: Date, default: Date.now },
-});
+    
+},{timestamps:true});
 
 const Domain = mongoose.model('Domain', domainSchema);
 

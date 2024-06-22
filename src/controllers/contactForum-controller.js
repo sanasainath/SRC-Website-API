@@ -16,7 +16,7 @@ class ContactForumController {
             });
         } catch (error) {
             console.error('Controller: Error creating contact forum:', error.message);
-            res.status(500).json({
+            res.status().json({
                  message: 'Failed to create contact forum', 
                  error: error.message
             });
@@ -29,7 +29,7 @@ class ContactForumController {
             res.status(200).json({
                 data:contactForums,
                 success:true,
-                message:'Successfully tetched',
+                message:'Successfully fetched',
                 err:{}
             });
         } catch (error) {

@@ -17,11 +17,12 @@ const signup = async (req, res) => {
             err: {}
         });
     } catch (error) {
-        return res.status(500).json({
+        const statusCode=error.statusCode || 500;
+        return res.status(statusCode).json({
             success: false,
             data: {},
-            message: "Something went wrong",
-            err: error.message
+            message:error.message,
+            err: error.name
         });
     }
 }
@@ -54,12 +55,12 @@ const verify=async (req,res)=>{
             success:true,
             err:{},
             data:response,
-            message:response.message
+            message:'Successfully created Account'
         });
     } catch (error) {
         return res.status(500).json({
             success:false,
-            message:"Something went wrong,123",
+            message:"Something went wrong",
             data:{},
             err:error.message
         });
@@ -91,12 +92,12 @@ const updatePassword=async (req,res)=>{
             success:true,
             err:{},
             data:response,
-            message:response.message
+            message:'Successfully updated the password'
         });
     } catch (error) {
         return res.status(500).json({
             success:false,
-            message:"Something went wrong,123",
+            message:"Something went wrong",
             data:{},
             err:error.message
         });

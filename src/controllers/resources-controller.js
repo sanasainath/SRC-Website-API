@@ -55,7 +55,10 @@ class ResourceController {
     async deleteResource(req, res) {
         try {
             await this.resourceService.deleteResource(req.params.id);
-            res.status(204).end();
+            res.status(204).json({
+                success:true,
+                message:deleted
+            });
         } catch (error) {
             res.status(500).json({ message: 'Error deleting resource', error: error.message });
         }

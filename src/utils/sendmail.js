@@ -21,8 +21,8 @@ const transporter = nodemailer.createTransport({
     const mailOptions = {
         from: 'airlineremainder@gmail.com',
         to,
-        subject: 'Verify your email',
-        html: `<h3>Click the link to verify your email</h3><a href="${url}">${url}</a>`
+        subject: 'SRC website Support',
+        html: `<h3>Click the link to ${flag}</h3><a href="${url}">${url}</a>`
     };
 
  await transporter.sendMail(mailOptions);

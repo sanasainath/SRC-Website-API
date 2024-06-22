@@ -39,8 +39,11 @@ class DomainService {
 
     async deleteDomain(id) {
         try {
-            return await this.domainRepository.destroy(id);
+           const domain= await this.domainRepository.destroy(id);
+           console.log('Service',domain)
+            return domain;
         } catch (error) {
+            console.log(error);
             throw error;
         }
     }

@@ -2,6 +2,10 @@ const { UserRepository } = require('../repository/index');
 const { sendVerificationEmail } = require('../utils/sendmail');
 const jwt=require('jsonwebtoken');
 const{JWT_KEY}=require('../config/serverConfig');
+const ValidationError = require('../utils/errors/validation-error');
+const AppErrors = require('../utils/errors/error-handler');
+const ClientError = require('../utils/errors/client-error');
+const {StatusCodes}=require('http-status-codes');
 
 class UserService {
     constructor() {
@@ -10,19 +14,27 @@ class UserService {
 
     async signup(data) {
         try {
-            const isExists = await this.getUserByEmail(data.email);
+            const isExists = await this.getUserByEmail(data.email); 
             if (!isExists) {
                 const newUser = await this.userRepository.create(data);
                 const verificationToken = newUser.genJWT();
-                await sendVerificationEmail(data.email, verificationToken);
-                return   { message: 'Verification link sent to your email',data:newUser};
+                await sendVerificationEmail(data.email, verificationToken,'verify');//'verify' to identify type of mail to send
+                return   { message: 'Verification link sent to your email'};
             } else if (isExists.isVerified) {
-                throw { message: 'User already exists'};
+                throw new ClientError('Duplicate USer',
+                                        'Try with another Email',
+                                        'User already exists',
+                                        StatusCodes.BAD_REQUEST
+                );
             } else {
-                throw { message: 'Verification email already sent. Please verify your email.'};
+                throw { message: 'Verification email already sent.Please verify your email.'};
             }
         } catch (error) {
+            if(error.name=='ValidationError'){
+                throw new ValidationError(error);
+            }
             throw error;
+           
         }
     }
 
@@ -81,9 +93,8 @@ class UserService {
         try {
             const isExists = await this.getUserByEmail(email);
             if (isExists && isExists.isVerified) {
-                const flag='link'
                 const token = isExists.genJWT();
-                await sendVerificationEmail(email, token,flag);
+                await sendVerificationEmail(email, token,'password Reset');//send emial to reset password
                 return  { message: 'Password Reset link sent to your email'};
             }
             else {
