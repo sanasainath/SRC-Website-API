@@ -12,10 +12,10 @@ const transporter = nodemailer.createTransport({
  async function sendVerificationEmail(to,token,flag) {
     var url='';
     if(flag=='verify'){
-        url = `http://localhost:3001/api/v1/verify/${token}`;
+        url = `https://src-website-api.onrender.com/api/v1/verify/${token}`;
     }
     else{
-        url = `http://localhost:3001/api/v1/reset/password/${token}`;
+        url = `https://src-website-api.onrender.com/api/v1/reset/password/${token}`;
     }
 
     const mailOptions = {
