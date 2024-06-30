@@ -14,7 +14,7 @@ class UserService {
             if (!isExists) {
                 const newUser = await this.userRepository.create(data);
                 const verificationToken = newUser.genJWT();
-                await sendVerificationEmail(data.email, verificationToken,"verify");
+                await sendVerificationEmail(data.email, verificationToken);
                 return   { message: 'Verification link sent to your email',data:newUser};
             } else if (isExists.isVerified) {
                 throw { message: 'User already exists'};
