@@ -44,7 +44,7 @@ router.delete('/domain/:id', (req, res) => domainController.deleteDomain(req, re
 router.post('/signup',signup);
 router.post('/login',login);
 router.get('/verify/:token',verify);
-router.get('/forgot/password',passwordResetLink);
+router.post('/forgot/password',passwordResetLink);
 router.patch('/reset/password/:token',updatePassword);
 
 //Officials Routes:
