@@ -58,7 +58,7 @@ const verify = async (req, res) => {
     // });
     return res
       .status(201)
-      .sendFile(path.join(__dirname, "../", "/utils/valid.js"));
+      .sendFile(path.join(__dirname, "./", "/utils/valid.js"));
   } catch (error) {
     return res.status(500).json({
       success: false,
