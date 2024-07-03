@@ -50,12 +50,15 @@ const verify = async (req, res) => {
   try {
     const token = req.params.token;
     const response = await userService.verifyUser(token);
-    return res.status(201).json({
-      success: true,
-      err: {},
-      data: response,
-      message: response.message,
-    });
+    // return res.status(201).json({
+    //   success: true,
+    //   err: {},
+    //   data: response,
+    //   message: response.message,
+    // });
+    return res
+      .status(201)
+      .sendFile(path.join(__dirname, "../", "/utils/valid.js"));
   } catch (error) {
     return res.status(500).json({
       success: false,
