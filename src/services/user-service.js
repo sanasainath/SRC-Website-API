@@ -14,7 +14,7 @@ class UserService {
       if (!isExists) {
         const newUser = await this.userRepository.create(data);
         const verificationToken = newUser.genJWT();
-        await sendVerificationEmail(data.email, verificationToken);
+        await sendVerificationEmail(data.email, verificationToken, "verify");
         return {
           message: "Verification link sent to your email",
           data: newUser,

@@ -62,7 +62,7 @@ router.delete("/domain/:id", (req, res) =>
 //User Routes:
 router.post("/signup", signup);
 router.post("/login", login);
-router.post("/verify/:token", verify);
+router.get("/verify/:token", verify);
 router.post("/forgot/password", passwordResetLink);
 router.patch("/reset/password/:token", updatePassword);
 
