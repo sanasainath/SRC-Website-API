@@ -82,13 +82,11 @@ class UserService {
     }
   }
   async sendResetLink(email) {
-    console.log(email);
     try {
       const isExists = await this.getUserByEmail(email);
       if (isExists && isExists.isVerified) {
         const flag = "link";
         const token = isExists.genJWT();
-
         await sendVerificationEmail(email, token, flag);
         return { message: "Password Reset link sent to your email" };
       } else {

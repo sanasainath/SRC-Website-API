@@ -50,15 +50,12 @@ const verify = async (req, res) => {
   try {
     const token = req.params.token;
     const response = await userService.verifyUser(token);
-    // return res.status(201).json({
-    //   success: true,
-    //   err: {},
-    //   data: response,
-    //   message: response.message,
-    // });
-    return res
-      .status(201)
-      .sendFile(path.join(__dirname, "../", "/utils/valid.js"));
+    return res.status(201).json({
+      success: true,
+      err: {},
+      data: response,
+      message: response.message,
+    });
   } catch (error) {
     return res.status(500).json({
       success: false,
@@ -69,7 +66,6 @@ const verify = async (req, res) => {
   }
 };
 const passwordResetLink = async (req, res) => {
-  console.log("req body:" + req.body);
   try {
     const response = await userService.sendResetLink(req.body.email);
     return res.status(201).json({
