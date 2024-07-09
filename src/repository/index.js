@@ -4,5 +4,6 @@ module.exports={
     OfficialRepository:require('./officials-details-repository'),
     ProjectRepository:require('./project-repository'),
     ResourceRepository:require('./resources-repository'),
-    UserRepository:require('./user-repository')
+    UserRepository:require('./user-repository'),
+    EventRepository:require('./event-repository')
 }

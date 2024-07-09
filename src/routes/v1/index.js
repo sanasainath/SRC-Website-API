@@ -1,11 +1,20 @@
 const express = require('express');
 const router = express.Router();
-const {officialController,domainController,resourceController,projectController,contactForumController,NewsController,TestimonialController,UserProfileController} = require('../../controller/index.js');
+const {officialController,domainController,resourceController,projectController,contactForumController,NewsController,TestimonialController,UserProfileController,EventController,LeaderBoardController} = require('../../controller/index.js');
 const checkDuplicateEmail = require('../../middlewares/checkDuplicateEmail');
+const {Leaderboard}=require('../../models/index.js')
 const { signup,login,verify,passwordResetLink,updatePassword} =require('../../controller/user-controller.js');
 const {UserService}=require('../../services/index.js');
 
 
+//leaderboard........
+
+router.post('/leaderboard', (req, res) => LeaderboardController.createLeaderboardEntry(req, res));
+router.get('/leaderboard/weekly', pagination(Leaderboard), (req, res) => LeaderBoardController.getWeeklyLeaderboard(req, res));
+router.get('/leaderboard/monthly', pagination(Leaderboard), (req, res) => LeaderBoardController.getMonthlyLeaderboard(req, res));
+router.get('/leaderboard/overall', pagination(Leaderboard), (req, res) => LeaderBoardController.getOverallLeaderboard(req, res));
+router.put('/leaderboard/:id', (req, res) => LeaderBoardController.updateLeaderboardEntry(req, res));
+router.delete('/leaderboard/:id', (req, res) => LeaderBoardController.deleteLeaderboardEntry(req, res));
 // News routes
 router.get('/news', NewsController.getAllNews);
 router.get('/news/by/:id', NewsController.getNewsById);
@@ -30,6 +39,13 @@ router.delete('/profiles/delete/:id', UserProfileController.deleteUserProfile);
 
 
 const userService=new UserService();
+
+//event Routes...
+router.post('/events', EventController.createEvent);
+router.get('/events', EventController.getAllEvents);
+router.get('/events/:id', EventController.getEventById);
+router.put('/events/:id', EventController.updateEvent);
+router.delete('/events/:id', EventController.deleteEvent);
 
 
 //Domain Routes

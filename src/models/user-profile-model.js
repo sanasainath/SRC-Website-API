@@ -2,9 +2,10 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const userProfileSchema = new Schema({
-  rguktId: { type: String, required: true, unique: true }, // Unique identifier for the user (RGUKT ID)
+  
   name: { type: String, required: true }, // Name of the user
-  bio: { type: String },
+ 
+ 
   email: { type: String, required: true }, // Email of the user
   github: { type: String }, // GitHub profile link
   leetcode: { type: String }, // LeetCode profile link
@@ -14,9 +15,9 @@ const userProfileSchema = new Schema({
   currentDesignation: { type: String }, // Current designation of the user
   projects: [{ type: Schema.Types.ObjectId, ref: 'Project' }], // Projects done under SRC domains
   contributions: [{ type: String }], // Contributions to SRC
-  eventsParticipated: [{ type: Schema.Types.ObjectId, ref: 'Event' }], // Events participated in SRC
-  createdAt: { type: Date, default: Date.now },
-  updatedAt: { type: Date, default: Date.now }
-});
+  eventsParticipated: [{ type: Schema.Types.ObjectId, ref: 'Event' }],
+  user: [{ type: Schema.Types.ObjectId, ref: 'User' }] // Events participated in SRC
+  
+}, { timestamps: true });
 
 module.exports = mongoose.model('UserProfile', userProfileSchema);
