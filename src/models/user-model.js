@@ -2,6 +2,7 @@ const mongoose = require('mongoose');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const {JWT_KEY}=require('../config/serverConfig');
+const Schema = mongoose.Schema;
 const userSchema = new mongoose.Schema({
     email: {
         type: String,
@@ -15,6 +16,7 @@ const userSchema = new mongoose.Schema({
         type: String,
         required: true
     },
+    userProfile: { type: Schema.Types.ObjectId, ref: 'UserProfile', required: true },
     role: {
         type: String,
         enum: ['user', 'admin'],
