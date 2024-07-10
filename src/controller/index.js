@@ -7,6 +7,8 @@ module.exports={
     NewsController:require('./news-details-controller'),
     TestimonialController:require('./testimonials-controller'),
     UserProfileController:require('./user-profile-controller'),
+    EventController:require('./event-controller'),
+    LeaderBoardController: require('./leaderboard-controller'),
 
 
     

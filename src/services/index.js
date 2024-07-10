@@ -4,6 +4,7 @@ module.exports={
     OfficialService:require('./officials-details-services'),
     ProjectService:require('./project-service'),
     ResourceService:require('./resources-service'),
-    UserService:require('./user-service')
+    UserService:require('./user-service'),
+    EventService:require('./event-service')
 
 }
