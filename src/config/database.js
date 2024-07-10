@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-const mongoURI = process.env.CONN_STR;
+const {mongoURI} =require('./serverConfig');
 
 const connect = async () => {
     try {
