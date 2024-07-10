@@ -7,9 +7,13 @@ class ResourceController {
 
     async createResource(req, res) {
         try {
-            const { title, description, url, type, domain } = req.body;
-            const resource = await this.resourceService.createResource({ title, description, url, type, domain });
-            res.status(201).json(resource);
+            const { title, description, url, type, domainId } = req.body;
+            const resource = await this.resourceService.createResource({ title, description, url, type, domainId });
+            res.status(201).json({
+                data:resource,
+                success:true,
+                message:'Successfully Created a Resource'
+            });
         } catch (error) {
             res.status(500).json({ message: 'Error creating resource', error: error.message });
         }
@@ -54,8 +58,11 @@ class ResourceController {
 
     async deleteResource(req, res) {
         try {
-            await this.resourceService.deleteResource(req.params.id);
-            res.status(204).end();
+            const response=await this.resourceService.deleteResource(req.params.id);
+            res.status(201).json({
+                success:true,
+                message:'deleted'
+            });
         } catch (error) {
             res.status(500).json({ message: 'Error deleting resource', error: error.message });
         }

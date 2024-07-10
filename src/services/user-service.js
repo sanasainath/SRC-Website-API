@@ -1,43 +1,45 @@
-const { UserRepository } = require("../repository/index");
-const { sendVerificationEmail } = require("../utils/sendmail");
-const jwt = require("jsonwebtoken");
-const { JWT_KEY } = require("../config/serverConfig");
+const { UserRepository } = require('../repository/index');
+const { sendVerificationEmail } = require('../utils/sendmail');
+const jwt=require('jsonwebtoken');
+const{JWT_KEY}=require('../config/serverConfig');
+const ValidationError = require('../utils/errors/validation-error');
+const AppErrors = require('../utils/errors/error-handler');
+const ClientError = require('../utils/errors/client-error');
+const {StatusCodes}=require('http-status-codes');
 
 class UserService {
   constructor() {
     this.userRepository = new UserRepository();
   }
 
-  async signup(data) {
-    try {
-      const isExists = await this.getUserByEmail(data.email);
-      if (!isExists) {
-        const newUser = await this.userRepository.create(data);
-        const verificationToken = newUser.genJWT();
-        await sendVerificationEmail(data.email, verificationToken, "verify");
-        return {
-          message: "Verification link sent to your email",
-          data: newUser,
-        };
-      } else if (isExists.isVerified) {
-        throw { message: "User already exists" };
-      } else {
-        throw {
-          message: "Verification email already sent. Please verify your email.",
-        };
-      }
-    } catch (error) {
-      throw error;
-    }
-  }
+ 
 
-  async getUserByEmail(email) {
-    try {
-      return await this.userRepository.findBy({ email });
-    } catch (error) {
-      throw error;
+    async signup(data) {
+        try {
+            const isExists = await this.getUserByEmail(data.email); 
+            if (!isExists) {
+                const newUser = await this.userRepository.create(data);
+                const verificationToken = newUser.genJWT();
+                await sendVerificationEmail(data.email, verificationToken,'verify');//'verify' to identify type of mail to send
+                return   { message: 'Verification link sent to your email'};
+            } else if (isExists.isVerified) {
+                throw new ClientError('Duplicate USer',
+                                        'Try with another Email',
+                                        'User already exists',
+                                        StatusCodes.BAD_REQUEST
+                );
+            } else {
+                throw { message: 'Verification email already sent.Please verify your email.'};
+            }
+        } catch (error) {
+            if(error.name=='ValidationError'){
+                throw new ValidationError(error);
+            }
+            throw error;
+           
+        }
     }
-  }
+  
 
   async verifyUser(token) {
     try {

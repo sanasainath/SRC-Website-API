@@ -14,7 +14,7 @@ const requireSignIn = (req, res, next) => {
     if (!token) {
       return res.status(401).json({ message: 'Token is missing' });
     }
-    jwt.verify(token, process.env.JWT_SECRET, (err, decoded) => {
+    jwt.verify(token, process.env.JWT_KEY, (err, decoded) => {
       if (err) {
         if (err.name === 'TokenExpiredError') {
           return res.status(401).json({ message: 'Token has expired' });

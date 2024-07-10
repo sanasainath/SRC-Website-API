@@ -8,7 +8,7 @@ class ContactForumRepository extends CrudRepository {
 
     async findByDomain(domainId) {
         try {
-            const contactForums = await ContactForum.find({ domain: domainId }).populate('domain');
+            const contactForums = await ContactForum.find({ domainId: domainId });
             return contactForums;
         } catch (error) {
             throw error;

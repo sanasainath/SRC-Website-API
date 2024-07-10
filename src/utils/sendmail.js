@@ -17,12 +17,12 @@ async function sendVerificationEmail(to, token, flag) {
     url = `https://src-website-api.onrender.com/api/v1/reset/password/${token}`;
   }
 
-  const mailOptions = {
-    from: "airlineremainder@gmail.com",
-    to,
-    subject: "Verify your email",
-    html: `<h3>Click the link to verify your email</h3><a href="${url}">${url}</a>`,
-  };
+    const mailOptions = {
+        from: 'airlineremainder@gmail.com',
+        to,
+        subject: 'SRC website Support',
+        html: `<h3>Click the link to ${flag}</h3><a href="${url}">${url}</a>`
+    };
 
   await transporter.sendMail(mailOptions);
 }

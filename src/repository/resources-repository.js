@@ -8,7 +8,7 @@ class ResourceRepository extends CrudRepository {
 
     async findByDomain(domainId) {
         try {
-            const resources = await Resource.find({ domain: domainId }).populate('domain');
+            const resources = await Resource.find({ domainId: domainId });
             return resources;
         } catch (error) {
             throw error;
