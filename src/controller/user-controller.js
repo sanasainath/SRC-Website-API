@@ -1,5 +1,5 @@
-const {UserService} = require('../services/index');
-
+const { UserService } = require("../services/index");
+const path = require("path");
 const userService = new UserService();
 
 const signup = async (req, res) => {
@@ -28,24 +28,24 @@ const signup = async (req, res) => {
 }
 
 const login = async (req, res) => {
-    try {
-        const token = await userService.signin(req.body);
-        return res.status(200).json({
-            success: true,
-            data: token,
-            message: "Successfully logged in",
-            err: {}
-        });
-    } catch (error) {
-        console.log("problem");
-        return res.status(500).json({
-            success: false,
-            data: {},
-            message: "Something went wrong",
-            err: error
-        });
-    }
-}
+  try {
+    const token = await userService.signin(req.body);
+    return res.status(200).json({
+      success: true,
+      data: token,
+      message: "Successfully logged in",
+      err: {},
+    });
+  } catch (error) {
+    console.log("problem");
+    return res.status(500).json({
+      success: false,
+      data: {},
+      message: "Something went wrong",
+      err: error,
+    });
+  }
+};
 
 const verify=async (req,res)=>{
     try {
@@ -105,9 +105,9 @@ const updatePassword=async (req,res)=>{
 }
 
 module.exports = {
-    signup,
-    login,
-    verify,
-    passwordResetLink,
-    updatePassword
+  signup,
+  login,
+  verify,
+  passwordResetLink,
+  updatePassword,
 };

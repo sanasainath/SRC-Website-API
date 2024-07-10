@@ -8,9 +8,11 @@ const ClientError = require('../utils/errors/client-error');
 const {StatusCodes}=require('http-status-codes');
 
 class UserService {
-    constructor() {
-        this.userRepository = new UserRepository();
-    }
+  constructor() {
+    this.userRepository = new UserRepository();
+  }
+
+ 
 
     async signup(data) {
         try {
@@ -37,96 +39,87 @@ class UserService {
            
         }
     }
+  
 
-    async getUserByEmail(email) {
-        try {
-            return await this.userRepository.findBy({ email });
-        } catch (error) {
-            throw error;
-        }
+  async verifyUser(token) {
+    try {
+      const decoded = jwt.verify(token, JWT_KEY);
+      const user = await this.userRepository.get(decoded._id);
+      if (!user) throw new Error("User not found");
+
+      if (user.isVerified) {
+        throw new Error("User already verified");
+      }
+      user.isVerified = true;
+      await user.save();
+      return user;
+    } catch (error) {
+      if (error.message == "User already verified") {
+        throw new Error("User already verified");
+      }
+      if (error.name === "TokenExpiredError") {
+        throw new Error("Token has expired");
+      } else {
+        throw new Error("Invalid token");
+      }
     }
+  }
 
-    async verifyUser(token) {
-        try {
-            const decoded = jwt.verify(token,JWT_KEY);
-            const user = await this.userRepository.get(decoded._id);    
-            if (!user) throw new Error('User not found');
-
-            if (user.isVerified) {
-                throw new Error('User already verified');
-            }
-            user.isVerified = true;
-            await user.save();
-            return user;
-        } catch (error) {
-            if(error.message=='User already verified'){
-                throw new Error('User already verified');
-            }
-            if (error.name === 'TokenExpiredError') {
-                throw new Error('Token has expired');
-            } else {
-                throw new Error('Invalid token');
-            }
-        }
+  async signin(data) {
+    try {
+      const user = await this.getUserByEmail(data.email);
+      if (!user) {
+        throw { message: "No user found" };
+      }
+      if (!user.comparePassword(data.password)) {
+        throw { message: "Wrong password" };
+      }
+      if (!user.isVerified) {
+        throw { message: "Email not verified,verification link sent already" };
+      }
+      const token = user.genJWT();
+      return token;
+    } catch (error) {
+      throw error;
     }
-
-
-    async signin(data) {
-        try {
-            const user = await this.getUserByEmail(data.email);
-            if (!user) {
-                throw { message: "No user found" };
-            }
-            if (!user.comparePassword(data.password)) {
-                throw { message: "Wrong password" };
-            }
-            if (!user.isVerified) {
-                throw { message: "Email not verified,verification link sent already" };
-            }
-            const token = user.genJWT();
-            return token;
-        } catch (error) {
-            throw error;
-        }
+  }
+  async sendResetLink(email) {
+    try {
+      const isExists = await this.getUserByEmail(email);
+      if (isExists && isExists.isVerified) {
+        const flag = "link";
+        const token = isExists.genJWT();
+        await sendVerificationEmail(email, token, flag);
+        return { message: "Password Reset link sent to your email" };
+      } else {
+        throw { message: "No User Exists ,Email is not registered/verified" };
+      }
+    } catch (error) {
+      console.log(error);
+      throw error;
     }
-    async sendResetLink(email) {
-        try {
-            const isExists = await this.getUserByEmail(email);
-            if (isExists && isExists.isVerified==true) {
-                const token = isExists.genJWT();
-                await sendVerificationEmail(email, token,'password Reset');//send emial to reset password
-                return  { message: 'Password Reset link sent to your email'};
-            }
-            else {
-                throw { message: 'No User Exists ,Email is not registered/verified'};
-            }     
-        } catch (error) {
-            console.log(error);
-            throw error;
-        }
-    }
+  }
 
-    async resetPassword(token,new_password) {
-        try {
-            const decoded = jwt.verify(token,JWT_KEY);
-            const user = await this.userRepository.get(decoded._id);
-            if (!user) throw new Error('User not found');
-            user.password= new_password;
-            await user.save();
-            return user;
-        } catch (error) {
-            // if(error.message=='User already verified'){
-            //     throw new Error('User already verified');
-            // }
-            // if (error.name === 'TokenExpiredError') {
-            //     throw new Error('Token has expired');
-            // } else {
-            //     throw new Error('Invalid token');
-            // }
-            throw error;
-        }
+  async resetPassword(token, new_password) {
+    try {
+      const decoded = jwt.verify(token, JWT_KEY);
+      const user = await this.userRepository.get(decoded._id);
+      if (!user) throw new Error("User not found");
+      user.password = new_password;
+      await user.save();
+      return user;
+    } catch (error) {
+      // if(error.message=='User already verified'){
+      //     throw new Error('User already verified');
+      // }
+      // if (error.name === 'TokenExpiredError') {
+      //     throw new Error('Token has expired');
+      // } else {
+      //     throw new Error('Invalid token');
+      // }
+      throw error;
     }
-
+  }
 }
 
 module.exports = UserService;

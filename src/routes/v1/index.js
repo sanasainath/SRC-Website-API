@@ -1,4 +1,4 @@
-const express = require('express');
+const express = require("express");
 const router = express.Router();
 const {officialController,domainController,resourceController,projectController,contactForumController,NewsController,TestimonialController,UserProfileController} = require('../../controller/index.js');
 const checkDuplicateEmail = require('../../middlewares/checkDuplicateEmail');
@@ -9,30 +9,30 @@ const { authenticate,authorizeAdmin } = require('../../middlewares/authorization
 
 
 // News routes
-router.get('/news', NewsController.getAllNews);
-router.get('/news/by/:id', NewsController.getNewsById);
-router.post('/create/news', NewsController.createNews);
-router.put('/update/news/:id', NewsController.updateNews);
-router.delete('/delete/news/:id', NewsController.deleteNews);
+router.get("/news", NewsController.getAllNews);
+router.get("/news/by/:id", NewsController.getNewsById);
+router.post("/create/news", NewsController.createNews);
+router.put("/update/news/:id", NewsController.updateNews);
+router.delete("/delete/news/:id", NewsController.deleteNews);
 
 // Testimonials routes
-router.get('/testimonials', TestimonialController.getAllTestimonials);
-router.get('/testimonials/by/:id', TestimonialController.getTestimonialById);
-router.post('/testimonials/create', TestimonialController.createTestimonial);
-router.put('/testimonials/update/:id', TestimonialController.updateTestimonial);
-router.delete('/testimonials/delete/:id', TestimonialController.deleteTestimonial);
+router.get("/testimonials", TestimonialController.getAllTestimonials);
+router.get("/testimonials/by/:id", TestimonialController.getTestimonialById);
+router.post("/testimonials/create", TestimonialController.createTestimonial);
+router.put("/testimonials/update/:id", TestimonialController.updateTestimonial);
+router.delete(
+  "/testimonials/delete/:id",
+  TestimonialController.deleteTestimonial
+);
 
 // User Profile routes
-router.get('/profiles', UserProfileController.getAllUserProfiles);
-router.get('/profiles/:id', UserProfileController.getUserProfileById);
-router.post('/profiles/create', UserProfileController.createUserProfile);
-router.put('/profiles/update/:id', UserProfileController.updateUserProfile);
-router.delete('/profiles/delete/:id', UserProfileController.deleteUserProfile);
+router.get("/profiles", UserProfileController.getAllUserProfiles);
+router.get("/profiles/:id", UserProfileController.getUserProfileById);
+router.post("/profiles/create", UserProfileController.createUserProfile);
+router.put("/profiles/update/:id", UserProfileController.updateUserProfile);
+router.delete("/profiles/delete/:id", UserProfileController.deleteUserProfile);
 
-
-
-const userService=new UserService();
-
+const userService = new UserService();
 
 //Domain Routes
 router.post('/domain',  authenticate,authorizeAdmin,(req, res) => domainController.createDomain(req, res));
@@ -76,11 +76,14 @@ router.delete('/project/:id',  authenticate,authorizeAdmin,projectController.del
 router.get('/project/:domainId', projectController.findProjectsByDomain);
 
 //ContactForum Routes
-router.post('/contact-forum', contactForumController.createContactForum);
-router.get('/contact-forums', contactForumController.getAllContactForums);
-router.get('/contact-forum/:id', contactForumController.getContactForumById);
-router.put('/contact-forum/:id', contactForumController.updateContactForum);
-router.delete('/contact-forum/:id', contactForumController.deleteContactForum);
-router.get('/contact-forums/:domainId', contactForumController.getAllContactForumsByDomain);
+router.post("/contact-forum", contactForumController.createContactForum);
+router.get("/contact-forums", contactForumController.getAllContactForums);
+router.get("/contact-forum/:id", contactForumController.getContactForumById);
+router.put("/contact-forum/:id", contactForumController.updateContactForum);
+router.delete("/contact-forum/:id", contactForumController.deleteContactForum);
+router.get(
+  "/contact-forums/:domainId",
+  contactForumController.getAllContactForumsByDomain
+);
 
 module.exports = router;
