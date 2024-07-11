@@ -5,7 +5,6 @@ const contactForumSchema = new Schema({
     title: { type: String, required: true },
     email: { type: String, required: true },
     description: { type: String, required: true },
-    domainId: { type: Schema.Types.ObjectId, ref: 'Domain', required: true},
 }, { timestamps: true });
 
 const ContactForum = mongoose.model('ContactForum', contactForumSchema);
