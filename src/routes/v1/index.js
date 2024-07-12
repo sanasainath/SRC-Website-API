@@ -11,12 +11,12 @@ const { authenticate,authorizeAdmin } = require('../../middlewares/authorization
 
 //leaderboard........
 
-router.post('/leaderboard', (req, res) => LeaderboardController.createLeaderboardEntry(req, res));
-router.get('/leaderboard/weekly', pagination(Leaderboard), (req, res) => LeaderBoardController.getWeeklyLeaderboard(req, res));
-router.get('/leaderboard/monthly', pagination(Leaderboard), (req, res) => LeaderBoardController.getMonthlyLeaderboard(req, res));
-router.get('/leaderboard/overall', pagination(Leaderboard), (req, res) => LeaderBoardController.getOverallLeaderboard(req, res));
-router.put('/leaderboard/:id', (req, res) => LeaderBoardController.updateLeaderboardEntry(req, res));
-router.delete('/leaderboard/:id', (req, res) => LeaderBoardController.deleteLeaderboardEntry(req, res));
+// router.post('/leaderboard', (req, res) => LeaderboardController.createLeaderboardEntry(req, res));
+// router.get('/leaderboard/weekly', pagination(Leaderboard), (req, res) => LeaderBoardController.getWeeklyLeaderboard(req, res));
+// router.get('/leaderboard/monthly', pagination(Leaderboard), (req, res) => LeaderBoardController.getMonthlyLeaderboard(req, res));
+// router.get('/leaderboard/overall', pagination(Leaderboard), (req, res) => LeaderBoardController.getOverallLeaderboard(req, res));
+// router.put('/leaderboard/:id', (req, res) => LeaderBoardController.updateLeaderboardEntry(req, res));
+// router.delete('/leaderboard/:id', (req, res) => LeaderBoardController.deleteLeaderboardEntry(req, res));
 // News routes
 router.get("/news", NewsController.getAllNews);
 router.get("/news/by/:id", NewsController.getNewsById);
@@ -42,11 +42,11 @@ router.put("/profiles/update/:id", UserProfileController.updateUserProfile);
 router.delete("/profiles/delete/:id", UserProfileController.deleteUserProfile);
 
 //event Routes...
-router.post('/events', EventController.createEvent);
-router.get('/events', EventController.getAllEvents);
-router.get('/events/:id', EventController.getEventById);
-router.put('/events/:id', EventController.updateEvent);
-router.delete('/events/:id', EventController.deleteEvent);
+// router.post('/events', EventController.createEvent);
+// router.get('/events', EventController.getAllEvents);
+// router.get('/events/:id', EventController.getEventById);
+// router.put('/events/:id', EventController.updateEvent);
+// router.delete('/events/:id', EventController.deleteEvent);
 
 const userService = new UserService();
 
