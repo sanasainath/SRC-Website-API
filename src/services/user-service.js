@@ -39,7 +39,13 @@ class UserService {
            
         }
     }
-  
+    async getUserByEmail(email) {
+        try {
+            return await this.userRepository.findBy({ email });
+        } catch (error) {
+            throw error;
+        }
+    }
 
   async verifyUser(token) {
     try {
