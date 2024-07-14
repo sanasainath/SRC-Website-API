@@ -18,8 +18,7 @@ const officialSchema = new Schema({
     researchgate: { type: String },
     twitter: { type: String },
     dateJoined: { type: Date },
-    lastUpdated: { type: Date, default: Date.now }
-});
+},{timestamps:true});
 
 const Official = mongoose.model('Official', officialSchema);
 

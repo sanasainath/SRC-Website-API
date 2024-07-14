@@ -1,4 +1,5 @@
 const {ProjectRepository} = require('../repository/index');
+const {Domain}=require('../models/index');
 
 class ProjectService {
     constructor() {
@@ -7,7 +8,15 @@ class ProjectService {
 
     async createProject(data) {
         try {
-            return await this.projectRepository.create(data);
+            const project=await this.projectRepository.create(data);
+
+            const domain = await Domain.findById(data.domainId);
+            if (!domain) {
+                throw new Error('Domain not found');
+            }
+            domain.projects.push(newResource._id);
+            await domain.save();
+            return project;
         } catch (error) {
             console.error('Service: Error creating project:', error.message);
             throw new Error('Failed to create project.');

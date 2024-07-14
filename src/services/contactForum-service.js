@@ -1,4 +1,5 @@
 const {ContactForumRepository} = require('../repository/index');
+const{Domain}=require('../models/index');
 
 class ContactForumService {
     constructor() {
@@ -8,6 +9,12 @@ class ContactForumService {
     async createContactForum(data) {
         try {
             const contactForum = await this.contactForumRepository.create(data);
+            const domain = await Domain.findById(data.domainId);
+            if (!domain) {
+                throw new Error('Domain not found');
+            }
+            domain.contactForums.push(contactForum._id);
+            await domain.save();
             return contactForum;
         } catch (error) {
             throw error;
@@ -43,7 +50,16 @@ class ContactForumService {
 
     async deleteContactForum(id) {
         try {
-            await this.contactForumRepository.destroy(id);
+            const forum = await this.getContactForumById(id);
+            if (!forum) {
+                throw new Error('Forum not found');
+            }
+            const domain = await Domain.findById(forum.domainId);
+            if (domain) {
+                domain.contactForums.pull(forum._id); // Remove ConatctForum reference
+                await domain.save();
+            }
+            return await this.contactForumRepository.destroy(id);
         } catch (error) {
             throw error;
         }

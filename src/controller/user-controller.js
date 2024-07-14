@@ -4,33 +4,29 @@ const userProfileService = new UserProfileService();
 
 // User signup controller
 const signup = async (req, res) => {
-  try {
-    // Create user profile first
-    
-
-    // Create user with the user profile reference
-    const user = await userService.signup({
-      email: req.body.email,
-      password: req.body.password,
-      name: req.body.name,
-      role: req.body.role
-    });
-    
-    return res.status(201).json({
-      success: true,
-      data: user,
-      message: 'Successfully created a new user',
-      err: {}
-    });
-  } catch (error) {
-    return res.status(500).json({
-      success: false,
-      data: {},
-      message: 'Something went wrong',
-      err: error.message
-    });
-  }
-};
+    try {
+        const user = await userService.signup({
+            email: req.body.email,
+            password: req.body.password,
+            name: req.body.name,
+            role:req.body.role
+        });
+        return res.status(201).json({
+            success: true,
+            data: user,
+            message: "Successfully created a new user",
+            err: {}
+        });
+    } catch (error) {
+        const statusCode=error.statusCode || 500;
+        return res.status(statusCode).json({
+            success: false,
+            data: {},
+            message:error.message,
+            err: error.name
+        });
+    }
+}
 
 // User login controller
 const login = async (req, res) => {

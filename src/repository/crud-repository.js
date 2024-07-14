@@ -1,3 +1,4 @@
+const ValidationError = require('../utils/errors/validation-error');
 class CrudRepository {
     constructor(model) {
         this.model = model;
@@ -8,8 +9,8 @@ class CrudRepository {
             const result = await this.model.create(data);
             return result;
         } catch (error) {
-            console.log('Something went wrong in Crud repository',error);
             throw error;
+            
         }
     }
 
@@ -18,7 +19,6 @@ class CrudRepository {
             const response = await this.model.findByIdAndDelete(id);
             return response;
         } catch (error) {
-            console.log('Something went wrong in Crud repository');
             throw { error };
         }
     }
@@ -28,8 +28,15 @@ class CrudRepository {
             const response = await this.model.findById(id);
             return response;
         } catch (error) {
-            console.log('Something went wrong in Crud repository');
             throw { error };
+        }
+    }
+    async findBy(data) {
+        try {
+            const response = await this.model.findOne(data);
+            return response;
+        } catch (error) {
+            throw error;
         }
     }
 
@@ -38,8 +45,6 @@ class CrudRepository {
             const response = await this.model.find({});
             return response;
         } catch (error) {
-            console.log('Something went wrong in ==Crud repository');
-            console.log("Problem is here");
             throw { error };
         }
     }
@@ -49,7 +54,6 @@ class CrudRepository {
             const response = await this.model.findByIdAndUpdate(id, data, { new: true });
             return response;
         } catch (error) {
-            console.log('Something went wrong in Crud repository');
             throw { error };
         }
     }

@@ -34,10 +34,14 @@ class DomainController {
     }
 
     async updateDomain(req, res) {
-        try {
+        try { 
             const update = req.body;
             const domain = await this.domainService.updateDomain(req.params.id, update);
-            res.status(200).json(domain);
+            res.status(200).json({
+                data:domain,
+                message:'Suuccessfully Updated the Domain',
+                success:true
+            });
         } catch (error) {
             res.status(500).json({ message: 'Error updating domain', error: error.message });
         }
@@ -45,9 +49,13 @@ class DomainController {
 
     async deleteDomain(req, res) {
         try {
-            await this.domainService.deleteDomain(req.params.id);
-            res.status(204).end();
+           const response= await this.domainService.deleteDomain(req.params.id);
+            res.status(200).json({
+                success:true,
+                message:'Successfully deleted'
+            });
         } catch (error) {
+            console.log('controller',error);
             res.status(500).json({ message: 'Error deleting domain', error: error.message });
         }
     }
