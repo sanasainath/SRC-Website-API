@@ -54,4 +54,4 @@ class UserProfileService {
   }
 }
 
-module.exports = new UserProfileService();
+module.exports = UserProfileService;

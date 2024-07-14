@@ -1,47 +1,57 @@
-const { UserService } = require("../services/index");
-const path = require("path");
+const { UserService, UserProfileService } = require('../services/index');
 const userService = new UserService();
+const userProfileService = new UserProfileService();
 
+// User signup controller
 const signup = async (req, res) => {
   try {
+    // Create user profile first
+    
+
+    // Create user with the user profile reference
     const user = await userService.signup({
       email: req.body.email,
       password: req.body.password,
       name: req.body.name,
-      role: req.body.role,
+      role: req.body.role
     });
+    
     return res.status(201).json({
       success: true,
       data: user,
-      message: "Successfully created a new user",
-      err: {},
+      message: 'Successfully created a new user',
+      err: {}
     });
   } catch (error) {
     return res.status(500).json({
       success: false,
       data: {},
-      message: "Something went wrong",
-      err: error.message,
+      message: 'Something went wrong',
+      err: error.message
     });
   }
 };
 
+// User login controller
 const login = async (req, res) => {
   try {
     const token = await userService.signin(req.body);
+    const user = await userService.getUserByEmail(req.body.email).populate('userProfile');
     return res.status(200).json({
       success: true,
-      data: token,
-      message: "Successfully logged in",
-      err: {},
+      data: {
+        token,
+        user
+      },
+      message: 'Successfully logged in',
+      err: {}
     });
   } catch (error) {
-    console.log("problem");
     return res.status(500).json({
       success: false,
       data: {},
-      message: "Something went wrong",
-      err: error,
+      message: 'Something went wrong',
+      err: error.message
     });
   }
 };
@@ -50,21 +60,34 @@ const verify = async (req, res) => {
   try {
     const token = req.params.token;
     const response = await userService.verifyUser(token);
+    console.log("RES:s",response);
+    if(response.isVerified){
+      const userProfile = await userProfileService.createUserProfile({
+        name:response.name,
+        email: response.email,       
+         userId:response._id
+
+      });
+      console.log("Profile:",userProfile);
+    }
+    
+
     return res.status(201).json({
       success: true,
       err: {},
       data: response,
-      message: response.message,
+      message: response.message
     });
   } catch (error) {
     return res.status(500).json({
       success: false,
-      message: "Something went wrong,123",
+      message: 'Something went wrong',
       data: {},
-      err: error.message,
+      err: error.message
     });
   }
 };
+
 const passwordResetLink = async (req, res) => {
   try {
     const response = await userService.sendResetLink(req.body.email);
@@ -72,36 +95,34 @@ const passwordResetLink = async (req, res) => {
       success: true,
       err: {},
       data: response,
-      message: response.message,
+      message: response.message
     });
   } catch (error) {
     return res.status(500).json({
       success: false,
-      message: "Something went wrong,123",
+      message: 'Something went wrong',
       data: {},
-      err: error.message,
+      err: error.message
     });
   }
 };
+
 const updatePassword = async (req, res) => {
   try {
     const password = req.body.password;
-    const response = await userService.resetPassword(
-      req.params.token,
-      password
-    );
+    const response = await userService.resetPassword(req.params.token, password);
     return res.status(201).json({
       success: true,
       err: {},
       data: response,
-      message: response.message,
+      message: response.message
     });
   } catch (error) {
     return res.status(500).json({
       success: false,
-      message: "Something went wrong,123",
+      message: 'Something went wrong',
       data: {},
-      err: error.message,
+      err: error.message
     });
   }
 };
@@ -111,5 +132,5 @@ module.exports = {
   login,
   verify,
   passwordResetLink,
-  updatePassword,
+  updatePassword
 };

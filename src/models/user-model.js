@@ -16,11 +16,10 @@ const userSchema = new mongoose.Schema({
         type: String,
         required: true
     },
-    userProfile: { type: Schema.Types.ObjectId, ref: 'UserProfile', required: true },
+    userProfile: { type: Schema.Types.ObjectId, ref: 'UserProfile'},
     role: {
         type: String,
         enum: ['user', 'admin'],
-        required: true,
         default: 'user'
     },
     isVerified: {

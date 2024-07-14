@@ -45,7 +45,7 @@ class UserService {
       const user = await this.userRepository.get(decoded._id);
       if (!user) throw new Error("User not found");
 
-      if (user.isVerified) {
+      if (user.isVerified==true) {
         throw new Error("User already verified");
       }
       user.isVerified = true;

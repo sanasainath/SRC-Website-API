@@ -24,9 +24,9 @@ const { UserService } = require("../../services/index.js");
 //leaderboard........
 
 router.post('/leaderboard', (req, res) => LeaderboardController.createLeaderboardEntry(req, res));
-router.get('/leaderboard/weekly', pagination(Leaderboard), (req, res) => LeaderBoardController.getWeeklyLeaderboard(req, res));
-router.get('/leaderboard/monthly', pagination(Leaderboard), (req, res) => LeaderBoardController.getMonthlyLeaderboard(req, res));
-router.get('/leaderboard/overall', pagination(Leaderboard), (req, res) => LeaderBoardController.getOverallLeaderboard(req, res));
+router.get('/leaderboard/weekly',  (req, res) => LeaderBoardController.getWeeklyLeaderboard(req, res));
+router.get('/leaderboard/monthly', (req, res) => LeaderBoardController.getMonthlyLeaderboard(req, res));
+router.get('/leaderboard/overall', (req, res) => LeaderBoardController.getOverallLeaderboard(req, res));
 router.put('/leaderboard/:id', (req, res) => LeaderBoardController.updateLeaderboardEntry(req, res));
 router.delete('/leaderboard/:id', (req, res) => LeaderBoardController.deleteLeaderboardEntry(req, res));
 // News routes
