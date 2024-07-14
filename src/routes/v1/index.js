@@ -20,9 +20,9 @@ const { authenticate,authorizeAdmin } = require('../../middlewares/authorization
 // News routes
 router.get("/news", NewsController.getAllNews);
 router.get("/news/by/:id", NewsController.getNewsById);
-router.post("/create/news", NewsController.createNews);
-router.put("/update/news/:id", NewsController.updateNews);
-router.delete("/delete/news/:id", NewsController.deleteNews);
+router.post("/create/news",authenticate,authorizeAdmin, NewsController.createNews);
+router.put("/update/news/:id",authenticate,authorizeAdmin, NewsController.updateNews);
+router.delete("/delete/news/:id",authenticate,authorizeAdmin, NewsController.deleteNews);
 
 // Testimonials routes
 router.get("/testimonials", TestimonialController.getAllTestimonials);
