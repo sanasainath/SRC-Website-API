@@ -1,4 +1,6 @@
-const userProfileService = require('../services/user-profile-service');
+const UserProfileService = require('../services/user-profile-service'); // Importing as instance, not a class
+
+const userProfileService=new UserProfileService();
 
 class UserProfileController {
   async getAllUserProfiles(req, res) {

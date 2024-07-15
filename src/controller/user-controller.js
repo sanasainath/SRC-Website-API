@@ -1,7 +1,8 @@
-const { UserService } = require("../services/index");
-const path = require("path");
+const { UserService, UserProfileService } = require('../services/index');
 const userService = new UserService();
+const userProfileService = new UserProfileService();
 
+// User signup controller
 const signup = async (req, res) => {
     try {
         const user = await userService.signup({
@@ -27,87 +28,105 @@ const signup = async (req, res) => {
     }
 }
 
+// User login controller
 const login = async (req, res) => {
   try {
     const token = await userService.signin(req.body);
+    const user = await userService.getUserByEmail(req.body.email).populate('userProfile');
     return res.status(200).json({
       success: true,
-      data: token,
-      message: "Successfully logged in",
-      err: {},
+      data: {
+        token,
+        user
+      },
+      message: 'Successfully logged in',
+      err: {}
     });
   } catch (error) {
-    console.log("problem");
     return res.status(500).json({
       success: false,
       data: {},
-      message: "Something went wrong",
-      err: error,
+      message: 'Something went wrong',
+      err: error.message
     });
   }
 };
 
-const verify=async (req,res)=>{
-    try {
-        const token=req.params.token;
-        const response=await userService.verifyUser(token);
-        return res.status(201).json({
-            success:true,
-            err:{},
-            data:response,
-            message:'Successfully created Account'
-        });
-    } catch (error) {
-        return res.status(500).json({
-            success:false,
-            message:"Something went wrong",
-            data:{},
-            err:error.message
-        });
+const verify = async (req, res) => {
+  try {
+    const token = req.params.token;
+    const response = await userService.verifyUser(token);
+    console.log("RES:s",response);
+    if(response.isVerified){
+      const userProfile = await userProfileService.createUserProfile({
+        name:response.name,
+        email: response.email,       
+         userId:response._id
+
+      });
+      console.log("Profile:",userProfile);
     }
-}
-const passwordResetLink=async (req,res)=>{
-    try {
-        const response=await userService.sendResetLink(req.body.email);
-        return res.status(201).json({
-            success:true,
-            err:{},
-            data:response,
-            message:response.message
-        });
-    } catch (error) {
-        return res.status(500).json({
-            success:false,
-            message:"Something went wrong,123",
-            data:{},
-            err:error.message
-        });
-    }
-}
-const updatePassword=async (req,res)=>{
-    try {
-        const password=req.body.password;
-        const response=await userService.resetPassword(req.params.token,password);
-        return res.status(201).json({
-            success:true,
-            err:{},
-            data:response,
-            message:'Successfully updated the password'
-        });
-    } catch (error) {
-        return res.status(500).json({
-            success:false,
-            message:"Something went wrong",
-            data:{},
-            err:error.message
-        });
-    }
-}
+    
+
+    return res.status(201).json({
+      success: true,
+      err: {},
+      data: response,
+      message: response.message
+    });
+  } catch (error) {
+    return res.status(500).json({
+      success: false,
+      message: 'Something went wrong',
+      data: {},
+      err: error.message
+    });
+  }
+};
+
+const passwordResetLink = async (req, res) => {
+  try {
+    const response = await userService.sendResetLink(req.body.email);
+    return res.status(201).json({
+      success: true,
+      err: {},
+      data: response,
+      message: response.message
+    });
+  } catch (error) {
+    return res.status(500).json({
+      success: false,
+      message: 'Something went wrong',
+      data: {},
+      err: error.message
+    });
+  }
+};
+
+const updatePassword = async (req, res) => {
+  try {
+    const password = req.body.password;
+    const response = await userService.resetPassword(req.params.token, password);
+    return res.status(201).json({
+      success: true,
+      err: {},
+      data: response,
+      message: response.message
+    });
+  } catch (error) {
+    return res.status(500).json({
+      success: false,
+      message: 'Something went wrong',
+      data: {},
+      err: error.message
+    });
+  }
+};
 
 module.exports = {
   signup,
   login,
   verify,
   passwordResetLink,
-  updatePassword,
+  updatePassword
 };
