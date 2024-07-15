@@ -40,15 +40,12 @@ class UserService {
         }
     }
     async getUserByEmail(email) {
-      try {
-        const user=await this.userRepository.findBy({email});
-          return user;
-        
-      } catch (error) {
-        throw error;
-      }
+        try {
+            return await this.userRepository.findBy({ email });
+        } catch (error) {
+            throw error;
+        }
     }
-  
 
   async verifyUser(token) {
     try {
