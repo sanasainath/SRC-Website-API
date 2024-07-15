@@ -9,12 +9,12 @@ class ContactForumService {
     async createContactForum(data) {
         try {
             const contactForum = await this.contactForumRepository.create(data);
-            const domain = await Domain.findById(data.domainId);
-            if (!domain) {
-                throw new Error('Domain not found');
-            }
-            domain.contactForums.push(contactForum._id);
-            await domain.save();
+            // const domain = await Domain.findById(data.domainId);
+            // if (!domain) {
+            //     throw new Error('Domain not found');
+            // }
+            // domain.contactForums.push(contactForum._id);
+            // await domain.save();
             return contactForum;
         } catch (error) {
             throw error;
