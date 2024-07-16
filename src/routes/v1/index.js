@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const {officialController,domainController,resourceController,projectController,contactForumController,NewsController,TestimonialController,UserProfileController} = require('../../controller/index.js');
+const {officialController,domainController,resourceController,projectController,contactForumController,NewsController,TestimonialController,UserProfileController,EventController} = require('../../controller/index.js');
 const checkDuplicateEmail = require('../../middlewares/checkDuplicateEmail');
 const { signup,login,verify,passwordResetLink,updatePassword} =require('../../controller/user-controller.js');
 const {UserService}=require('../../services/index.js');
