@@ -1,13 +1,14 @@
 const { UserService, UserProfileService } = require('../services/index');
 const userService = new UserService();
 const userProfileService = new UserProfileService();
+const { StatusCodes } = require('http-status-codes'); 
 
 // User signup controller
 const signup = async (req, res) => {
     try {
         const user = await userService.signup({
             email: req.body.email,
-            password: req.body.password,
+            password: req.body.password,  
             name: req.body.name,
             role:req.body.role
         });
@@ -27,6 +28,19 @@ const signup = async (req, res) => {
         });
     }
 }
+const getUserByEmail = async (req, res, next) => {
+  try {
+    const email = req.params.email;
+    const user = await userService.getUserByEmail(email);
+    if (!user) {
+      return res.status(StatusCodes.NOT_FOUND).json({ message: 'User not found' });
+    }
+    res.status(StatusCodes.OK).json(user);
+  } catch (error) {
+    next(error);
+  }
+}
+
 
 // User login controller
 const login = async (req, res) => {
@@ -128,5 +142,6 @@ module.exports = {
   login,
   verify,
   passwordResetLink,
-  updatePassword
+  updatePassword,
+  getUserByEmail
 };
