@@ -32,7 +32,9 @@ const signup = async (req, res) => {
 const login = async (req, res) => {
   try {
     const token = await userService.signin(req.body);
-    const user = await userService.getUserByEmail(req.body.email).populate('userProfile');
+    // const user = await userService.getUserByEmail(req.body.email).populate('userProfile');
+    const user = await userService.getUserByEmail(req.body.email);
+      
     return res.status(200).json({
       success: true,
       data: {
