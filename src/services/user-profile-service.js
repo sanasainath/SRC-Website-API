@@ -37,8 +37,11 @@ class UserProfileService {
   }
 
   async updateUserProfile(id, updateData) {
+    console.log("in profile service:",id,updateData);
     try {
       const profile = await userProfileRepository.update(id, updateData);
+      console.log("in profile service user:",profile);
+      
       if (!profile) {
         throw new Error('UserProfile not found');
       }
