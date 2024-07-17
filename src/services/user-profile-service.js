@@ -20,6 +20,18 @@ class UserProfileService {
       throw new Error(`Service error: ${error.message}`);
     }
   }
+  
+  async getUserProfileByEmail(email) {
+    try {
+      const profile = await userProfileRepository.get(email);
+      if (!profile) {
+        throw new Error('UserProfile not found');
+      }
+      return profile;
+    } catch (error) {
+      throw new Error(`Service error: ${error.message}`);
+    }
+  }
 
   async updateUserProfile(id, updateData) {
     try {
