@@ -41,6 +41,8 @@ router.get("/profiles/email/:email", authenticate,authorizeAdmin,UserProfileCont
 router.post("/profiles/create", UserProfileController.createUserProfile);
 router.put("/profiles/update/:id", UserProfileController.updateUserProfile);
 router.delete("/profiles/delete/:id", UserProfileController.deleteUserProfile);
+router.put("/profiles/update/role/:id", authenticate,authorizeAdmin,UserProfileController.updateUserProfile);
+
 
 //event Routes...
 // router.post('/events', EventController.createEvent);
