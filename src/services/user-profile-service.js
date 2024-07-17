@@ -24,7 +24,7 @@ class UserProfileService {
   async getUserProfileByEmail(email) {
     console.log(email);
     try {
-      const profile = await userProfileRepository.get(email);
+      const profile = await userProfileRepository.findBy({email});
       console.log("user profile:",profile);
       if (!profile) {
         throw new Error('UserProfile not found');
