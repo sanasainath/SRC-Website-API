@@ -22,9 +22,12 @@ class UserProfileController {
     }
   }
 async getUserProfileByEmail(req, res, next) {
+  
   try {
     const email = req.params.email;
+    console.log("user profile controller:",email);
     const user = await userProfileService.getUserProfileByEmail(email);
+    console.log("user profile schema controller:",user);
     if (!user) {
       return res.status(StatusCodes.NOT_FOUND).json({ message: 'User not found' });
     }
