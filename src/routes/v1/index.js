@@ -65,7 +65,7 @@ router.post('/login',validateUserAuth,login);
 router.get('/verify/:token',verify);
 router.get('/forgot/password',passwordResetLink);
 router.patch('/reset/password/:token',updatePassword);
-router.get('/email/:email',getUserByEmail);
+router.get('/email/:email',authenticate,authorizeAdmin,getUserByEmail);
 router.put('/update/role/:id',authenticate,authorizeAdmin,updateRole);
 //Officials Routes:
 router.post('/officials',checkDuplicateEmail,officialController.createOfficial);
