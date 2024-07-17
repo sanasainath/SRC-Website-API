@@ -89,6 +89,19 @@ class UserService {
       throw error;
     }
   }
+
+  async updateRole(userId,role) {
+    try {
+     
+      const response= await this.userRepository.update(userId, role);
+     
+      return response;
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  
   async sendResetLink(email) {
     try {
       const isExists = await this.getUserByEmail(email);
