@@ -16,7 +16,8 @@ const userProfileSchema = new Schema({
   contributions: [{ type: String }], // Contributions to SRC
   eventsParticipated: [{ type: Schema.Types.ObjectId, ref: 'Event' }],
   userId: { type: Schema.Types.ObjectId, ref: 'User',required:true } // Events participated in SRC
-  
+  role: {type: String, enum: ['user', 'admin', 'Coordinator'], default: 'user'},
+  domain:{type: Schema.Types.ObjectId, ref:'Domain', required : false},
 }, { timestamps: true });
 
 module.exports = mongoose.model('UserProfile', userProfileSchema);
