@@ -27,7 +27,8 @@ class UserProfileService {
       const profile = await userProfileRepository.findBy({email});
       console.log("user profile:",profile);
       if (!profile) {
-        throw new Error('UserProfile not found');
+        // throw new Error('UserProfile not found');
+        return { message: 'User not Found'};
       }
       return profile;
     } catch (error) {
