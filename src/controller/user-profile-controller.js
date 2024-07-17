@@ -21,7 +21,7 @@ class UserProfileController {
       res.status(500).json({ message: error.message });
     }
   }
-async getUserProfileByEmail(req, res, next) => {
+async getUserProfileByEmail(req, res, next) {
   try {
     const email = req.params.email;
     const user = await userProfileService.getUserProfileByEmail(email);
