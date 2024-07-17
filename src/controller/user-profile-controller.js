@@ -1,5 +1,5 @@
 const UserProfileService = require('../services/user-profile-service'); // Importing as instance, not a class
-
+const { StatusCodes } = require('http-status-codes'); 
 const userProfileService=new UserProfileService();
 
 class UserProfileController {
@@ -21,7 +21,18 @@ class UserProfileController {
       res.status(500).json({ message: error.message });
     }
   }
-
+async getUserProfileByEmail(req, res, next) => {
+  try {
+    const email = req.params.email;
+    const user = await userProfileService.getUserProfileByEmail(email);
+    if (!user) {
+      return res.status(StatusCodes.NOT_FOUND).json({ message: 'User not found' });
+    }
+    res.status(StatusCodes.OK).json(user);
+  } catch (error) {
+    next(error);
+  }
+}
   async createUserProfile(req, res) {
     try {
       const profile = await userProfileService.createUserProfile(req.body);
