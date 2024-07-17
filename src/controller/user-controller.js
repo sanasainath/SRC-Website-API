@@ -69,6 +69,27 @@ const login = async (req, res) => {
   }
 };
 
+// Update Role
+
+const updateRole=async (req,res)=>{
+    try {
+        const response = await userService.updateRole(req.params.id, req.body);
+        return res.status(201).json({
+            success:true,
+            err:{},
+            data:response,
+            message:'Successfully updated the Role'
+        });
+    } catch (error) {
+        return res.status(500).json({
+            success:false,
+            message:"Something went wrong",
+            data:{},
+            err:error.message
+        });
+    }
+}
+
 const verify = async (req, res) => {
   try {
     const token = req.params.token;
@@ -146,5 +167,6 @@ module.exports = {
   verify,
   passwordResetLink,
   updatePassword,
-    getUserByEmail
+    getUserByEmail,
+    updateRole
 };
