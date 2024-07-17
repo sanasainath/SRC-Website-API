@@ -2,7 +2,7 @@ const express = require("express");
 const router = express.Router();
 const {officialController,domainController,resourceController,projectController,contactForumController,NewsController,TestimonialController,UserProfileController,EventController} = require('../../controller/index.js');
 const checkDuplicateEmail = require('../../middlewares/checkDuplicateEmail');
-const { signup,login,verify,passwordResetLink,updatePassword,getUserByEmail} =require('../../controller/user-controller.js');
+const { signup,login,verify,passwordResetLink,updatePassword,getUserByEmail,updateRole} =require('../../controller/user-controller.js');
 const {UserService}=require('../../services/index.js');
 const {validateUserAuth,validateisAdminId}=require('../../middlewares/auth-request-validators.js');
 const { authenticate,authorizeAdmin } = require('../../middlewares/authorization.js');
@@ -66,6 +66,7 @@ router.get('/verify/:token',verify);
 router.get('/forgot/password',passwordResetLink);
 router.patch('/reset/password/:token',updatePassword);
 router.get('/email/:email',getUserByEmail);
+router.put('/update/role/:id',authenticate,authorizeAdmin,updateRole);
 //Officials Routes:
 router.post('/officials',checkDuplicateEmail,officialController.createOfficial);
 router.get('/officials', officialController.getAllOfficials);
