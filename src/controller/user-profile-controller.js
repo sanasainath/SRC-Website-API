@@ -46,8 +46,10 @@ async getUserProfileByEmail(req, res, next) {
   }
 
   async updateUserProfile(req, res) {
+    console.log("in profile controller:",req.params.id,req.body);
     try {
       const profile = await userProfileService.updateUserProfile(req.params.id, req.body);
+      console.log("in profile controller user:",profile);
       if (!profile) return res.status(404).json({ message: 'UserProfile not found' });
       res.status(200).json(profile);
     } catch (error) {
