@@ -28,6 +28,20 @@ const signup = async (req, res) => {
     }
 }
 
+// Getting user by email
+const getUserByEmail = async (req, res, next) => {
+  try {
+    const email = req.params.email;
+    const user = await userService.getUserByEmail(email);
+    if (!user) {
+      return res.status(StatusCodes.NOT_FOUND).json({ message: 'User not found' });
+    }
+    res.status(StatusCodes.OK).json(user);
+  } catch (error) {
+    next(error);
+  }
+}
+
 // User login controller
 const login = async (req, res) => {
   try {
@@ -130,5 +144,6 @@ module.exports = {
   login,
   verify,
   passwordResetLink,
-  updatePassword
+  updatePassword,
+    getUserByEmail
 };
