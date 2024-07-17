@@ -19,8 +19,12 @@ const userSchema = new mongoose.Schema({
     userProfile: { type: Schema.Types.ObjectId, ref: 'UserProfile'},
     role: {
         type: String,
-        enum: ['user', 'admin'],
+        enum: ['user', 'admin', 'Coordinator'],
         default: 'user'
+    },
+    domain:{
+        type: Schema.Types.ObjectId, ref:'Domain',
+        required : false
     },
     isVerified: {
         type: Boolean,
