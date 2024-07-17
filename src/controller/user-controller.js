@@ -1,6 +1,7 @@
 const { UserService, UserProfileService } = require('../services/index');
 const userService = new UserService();
 const userProfileService = new UserProfileService();
+const { StatusCodes } = require('http-status-codes'); 
 
 // User signup controller
 const signup = async (req, res) => {
