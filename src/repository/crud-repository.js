@@ -50,8 +50,10 @@ class CrudRepository {
     }
 
     async update(id, data) {
+        console.log("in repo:",id, data);
         try {
             const response = await this.model.findByIdAndUpdate(id, data, { new: true });
+            console.log("in repo res:",response);
             return response;
         } catch (error) {
             throw { error };
