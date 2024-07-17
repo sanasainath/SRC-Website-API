@@ -37,7 +37,7 @@ router.delete(
 // User Profile routes
 router.get("/profiles", UserProfileController.getAllUserProfiles);
 router.get("/profiles/:id", UserProfileController.getUserProfileById);
-router.get("/profiles/email/:email", UserProfileController.getUserProfileByEmail);
+router.get("/profiles/email/:email", authenticate,authorizeAdmin,UserProfileController.getUserProfileByEmail);
 router.post("/profiles/create", UserProfileController.createUserProfile);
 router.put("/profiles/update/:id", UserProfileController.updateUserProfile);
 router.delete("/profiles/delete/:id", UserProfileController.deleteUserProfile);
