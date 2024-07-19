@@ -124,7 +124,7 @@ const verify = async (req, res) => {
 
 const passwordResetLink = async (req, res) => {
   try {
-    const response = await userService.sendResetLink(req.body.email);
+    const response = await userService.sendResetLink(req.params.email);
     return res.status(201).json({
       success: true,
       err: {},
