@@ -40,8 +40,10 @@ class UserService {
         }
     }
     async getUserByEmail(email) {
+        console.log("getting email:",email);
         try {
             return await this.userRepository.findBy({ email });
+          
         } catch (error) {
             throw error;
         }
@@ -103,8 +105,10 @@ class UserService {
 
   
   async sendResetLink(email) {
+    console.log("reset link:",email);
     try {
       const isExists = await this.getUserByEmail(email);
+      console.log("reset link isExists:",isExists);
       if (isExists && isExists.isVerified) {
         const flag = "link";
         const token = isExists.genJWT();
