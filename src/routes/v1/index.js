@@ -45,11 +45,11 @@ router.put("/profiles/update/role/:id", authenticate,authorizeAdmin,UserProfileC
 
 
 //event Routes...
-// router.post('/events', EventController.createEvent);
-// router.get('/events', EventController.getAllEvents);
-// router.get('/events/:id', EventController.getEventById);
-// router.put('/events/:id', EventController.updateEvent);
-// router.delete('/events/:id', EventController.deleteEvent);
+router.post('/events', EventController.createEvent);
+router.get('/events', EventController.getAllEvents);
+router.get('/events/:id', EventController.getEventById);
+router.put('/events/:id', EventController.updateEvent);
+router.delete('/events/:id', EventController.deleteEvent);
 
 const userService = new UserService();
 
