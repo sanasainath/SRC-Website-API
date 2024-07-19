@@ -65,7 +65,7 @@ router.delete('/domain/:id',  authenticate,authorizeAdmin,(req, res) => domainCo
 router.post('/signup',signup);
 router.post('/login',validateUserAuth,login);
 router.get('/verify/:token',verify);
-router.get('/forgot/password',passwordResetLink);
+router.get('/forgot/password/:email',passwordResetLink);
 router.patch('/reset/password/:token',updatePassword);
 router.get('/email/:email',authenticate,authorizeAdmin,getUserByEmail);
 router.put('/update/role/:id',authenticate,authorizeAdmin,updateRole);
