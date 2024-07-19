@@ -8,7 +8,7 @@ const eventSchema = new Schema({
     fromDate: { type: Date, required: true },
     toDate: { type: Date, required: true },
     startTime : {type : String, required : true},
-    toTime : {type : String, required : true},
+    endTime : {type : String, required : true},
     time:{type : String, required : true},
     prizeDetails : [{position: Number, description : String}],
     description: { type: String, required: true },
