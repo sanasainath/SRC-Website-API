@@ -11,7 +11,10 @@ const eventSchema = new Schema({
     endTime : {type : String, required : true},
     prizeDetails : [{position: Number, description : String}],
     description: { type: String, required: true },
-    coordinators: [{ type: Schema.Types.ObjectId, ref: 'User', required: false }],
+    coordinators: [{
+      id: { type: Schema.Types.ObjectId, ref: 'User', required: false },
+      email: { type: String }
+    }]
     registrationLink: { type: String },
     isUpcoming: { type: Boolean, default: true },
     summary: { type: String },
