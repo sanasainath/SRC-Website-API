@@ -14,7 +14,7 @@ const eventSchema = new Schema({
     coordinators: [{
       id: { type: Schema.Types.ObjectId, ref: 'User', required: false },
       email: { type: String }
-    }]
+    }],
     registrationLink: { type: String },
     isUpcoming: { type: Boolean, default: true },
     summary: { type: String },
