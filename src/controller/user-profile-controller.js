@@ -33,7 +33,11 @@ class UserProfileController {
 
   async updateUserProfile(req, res) {
     try {
-      const profile = await userProfileService.updateUserProfile(req.params.id, req.body);
+      const updateuser=req.body;
+      if (req.file) {
+        updateuser.photo = process.env.APP_API + '/public/images/' + req.file.filename;
+    }
+      const profile = await userProfileService.updateUserProfile(req.params.id,updateuser);
       if (!profile) return res.status(404).json({ message: 'UserProfile not found' });
       res.status(200).json(profile);
     } catch (error) {

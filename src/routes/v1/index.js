@@ -6,7 +6,16 @@ const { signup,login,verify,passwordResetLink,updatePassword, getUserByEmail} =r
 const {UserService}=require('../../services/index.js');
 const {validateUserAuth,validateisAdminId}=require('../../middlewares/auth-request-validators.js');
 const { authenticate,authorizeAdmin } = require('../../middlewares/authorization.js');
-
+const multer = require('multer');
+const storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, 'public/images');
+  },
+  filename: function (req, file, cb) {
+    cb(null, file.fieldname + '-' + Date.now() + '-' + file.originalname);
+  },
+});
+const upload = multer({ storage: storage });
 
 
 //leaderboard........
@@ -27,7 +36,8 @@ router.delete("/delete/news/:id",authenticate,authorizeAdmin, NewsController.del
 // Testimonials routes
 router.get("/testimonials", TestimonialController.getAllTestimonials);
 router.get("/testimonials/by/:id", TestimonialController.getTestimonialById);
-router.post("/testimonials/create", TestimonialController.createTestimonial);
+router.post("/testimonials/create", upload.single('photo'),TestimonialController.createTestimonial);
+// router.post("/testimonials/create",TestimonialController.createTestimonial);
 router.put("/testimonials/update/:id", TestimonialController.updateTestimonial);
 router.delete(
   "/testimonials/delete/:id",
