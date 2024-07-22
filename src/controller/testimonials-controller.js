@@ -45,7 +45,9 @@ class TestimonialController {
 
     async updateTestimonial(req, res) {
         try {
+            console.log("in con: ", req.params.id, req.body);
             const testimonial = await testimonialService.updateTestimonial(req.params.id, req.body);
+            console.log("in con testimonals: ", testimonals);
             if (!testimonial) return res.status(404).json({ message: 'Testimonial not found' });
             res.status(200).json(testimonial);
         } catch (error) {
