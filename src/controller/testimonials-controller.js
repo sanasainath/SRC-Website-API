@@ -45,8 +45,13 @@ class TestimonialController {
 
     async updateTestimonial(req, res) {
         try {
+            const testimonialData=req.body;
+            console.log("Req file",req.file);
+            if (req.file) {
+                testimonialData.photo = process.env.APP_API + '/public/images/' + req.file.filename;
+            }
             console.log("in con: ", req.params.id, req.body);
-            const testimonial = await testimonialService.updateTestimonial(req.params.id, req.body);
+            const testimonial = await testimonialService.updateTestimonial(req.params.id, testimonialData);
             console.log("in con testimonals: ", testimonals);
             if (!testimonial) return res.status(404).json({ message: 'Testimonial not found' });
             res.status(200).json(testimonial);
