@@ -22,7 +22,13 @@ class TestimonialController {
 
     async createTestimonial(req, res) {
         try {
-            const testimonial = await testimonialService.createTestimonial(req.body);
+            const testimonialData=req.body;
+            console.log("Req file",req.file);
+            if (req.file) {
+                testimonialData.photo = process.env.APP_API + '/public/images/' + req.file.filename;
+            }
+            const testimonial = await testimonialService.createTestimonial(testimonialData);
+            // const testimonial = await testimonialService.createTestimonial(req.body);
             res.status(201).json(testimonial);
         } catch (error) {
             res.status(400).json({ message: error.message });
