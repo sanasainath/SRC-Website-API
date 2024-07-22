@@ -1,10 +1,10 @@
 const mongoose = require('mongoose');
 
 const testimonialSchema = new mongoose.Schema({
-  title: {
-    type: String,
-    required: true
-  },
+  // title: {
+  //   type: String,
+  //   required: true
+  // },
   name: {
     type: String,
     required: true
@@ -17,12 +17,12 @@ const testimonialSchema = new mongoose.Schema({
     type: Date,
     default: Date.now
   },
-  rating: {
-    type: Number,
-    min: 0,
-    max: 5,
-    required: true
-  },
+  // rating: {
+  //   type: Number,
+  //   min: 0,
+  //   max: 5,
+  //   required: true
+  // },
   designation: {
     type: String,
     required: true
