@@ -28,7 +28,7 @@ class TestimonialController {
                 testimonialData.photo = process.env.APP_API + '/public/images/' + req.file.filename;
             }
             const testimonial = await testimonialService.createTestimonial(testimonialData);
-            // const testimonial = await testimonialService.createTestimonial(req.body);
+            // co testimonial = await testimonialService.createTestimonial(req.body);
             res.status(201).json(testimonial);
         } catch (error) {
             res.status(400).json({ message: error.message });
