@@ -88,7 +88,7 @@ router.post('/officials',upload.single('photo'),checkDuplicateEmail,officialCont
 router.get('/officials', officialController.getAllOfficials);
 router.get('/officials/:id', officialController.getOfficialById);
 router.get('/official/:email', officialController.getOfficialByEmail);
-router.put('/officials/:id', officialController.updateOfficial);
+router.put('/officials/:id',upload.single('photo'), officialController.updateOfficial);
 router.delete('/officials/:id', officialController.deleteOfficial);
 
 
