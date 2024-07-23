@@ -33,7 +33,7 @@ class TestimonialService {
         try {
             console.log("in service:", id, updateData);
             const testimonial = await testimonialRepository.update(id, updateData);
-            console.log("in service test:", testimonal);
+            console.log("in service test:", testimonial);
             if (!testimonial) {
                 throw new Error('Testimonial not found');
             }
