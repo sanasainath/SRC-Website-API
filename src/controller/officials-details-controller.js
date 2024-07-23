@@ -6,7 +6,22 @@ class OfficialController {
     }
     createOfficial= async (req, res)=> {
         try {
-            const official = await this.officialService.createOfficial(req.body);
+            const officialData = req.body;
+            console.log("Req file", req.file);
+
+            if (req.file) {
+                const filePath = req.file.path;
+                const fileBuffer = fs.readFileSync(filePath);
+                const fileBase64 = fileBuffer.toString('base64');
+                console.log("in controller:", filePath, fileBuffer, fileBase64);
+                // Add the Base64 image to testimonialData
+                officialData.photo = fileBase64;
+
+                // Delete the file after converting to Base64
+                fs.unlinkSync(filePath);
+            }
+            const official = await this.officialService.createOfficial(officialData);
+            console.log(official);
             return res.status(201).json({
                 data:official,
                 success:true,
