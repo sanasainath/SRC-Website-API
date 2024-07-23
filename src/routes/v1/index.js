@@ -7,16 +7,18 @@ const {UserService}=require('../../services/index.js');
 const {validateUserAuth,validateisAdminId}=require('../../middlewares/auth-request-validators.js');
 const { authenticate,authorizeAdmin } = require('../../middlewares/authorization.js');
 
+// const multer = require('multer');
+// const storage = multer.diskStorage({
+//   destination: function (req, file, cb) {
+//     cb(null, 'public/images');
+//   },
+//   filename: function (req, file, cb) {
+//     cb(null, file.fieldname + '-' + Date.now() + '-' + file.originalname);
+//   },
+// });
+// const upload = multer({ storage: storage });
 const multer = require('multer');
-const storage = multer.diskStorage({
-  destination: function (req, file, cb) {
-    cb(null, 'public/images');
-  },
-  filename: function (req, file, cb) {
-    cb(null, file.fieldname + '-' + Date.now() + '-' + file.originalname);
-  },
-});
-const upload = multer({ storage: storage });
+const upload = multer({ dest: 'uploads/' }); // Configure multer as needed
 
 
 //leaderboard........
