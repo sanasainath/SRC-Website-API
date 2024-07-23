@@ -1,5 +1,6 @@
 const testimonialService = require('../services/testimonial-service');
-
+const fs = require('fs');
+const multer = require('multer');
 class TestimonialController {
     async getAllTestimonials(req, res) {
         try {
@@ -22,33 +23,46 @@ class TestimonialController {
 
     // async createTestimonial(req, res) {
     //     try {
-    //         const testimonial = await testimonialService.createTestimonial(req.body);
+    //         const testimonialData=req.body;
+    //         console.log("Req file",req.file);
+           
+           
+       
     //         res.status(201).json(testimonial);
     //     } catch (error) {
     //         res.status(400).json({ message: error.message });
     //     }
     // }
+
     async createTestimonial(req, res) {
         try {
-            const testimonialData=req.body;
-            console.log("Req file",req.file);
+            const testimonialData = req.body;
+            console.log("Req file", req.file);
+
             if (req.file) {
-                testimonialData.photo = process.env.APP_API + '/public/images/' + req.file.filename;
+                const filePath = req.file.path;
+                const fileBuffer = fs.readFileSync(filePath);
+                const fileBase64 = fileBuffer.toString('base64');
+                console.log("in controller:", filePath, fileBuffer, fileBase6);
+                // Add the Base64 image to testimonialData
+                testimonialData.photo = fileBase64;
+
+                // Delete the file after converting to Base64
+                fs.unlinkSync(filePath);
             }
+
             const testimonial = await testimonialService.createTestimonial(testimonialData);
-            // co testimonial = await testimonialService.createTestimonial(req.body);
+            console.log("in controller test:", testimonial);
+
             res.status(201).json(testimonial);
         } catch (error) {
             res.status(400).json({ message: error.message });
-        }
-    }
+        }
+    }
 
     async updateTestimonial(req, res) {
         try {
-            
-            console.log("in con: ", req.params.id, req.body);
             const testimonial = await testimonialService.updateTestimonial(req.params.id, req.body);
-            console.log("in con testimonals: ", testimonial);
             if (!testimonial) return res.status(404).json({ message: 'Testimonial not found' });
             res.status(200).json(testimonial);
         } catch (error) {
