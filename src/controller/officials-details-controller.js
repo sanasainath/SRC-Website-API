@@ -1,5 +1,6 @@
 const {OfficialService} = require('../services/index');
-
+const fs = require('fs');
+const multer = require('multer');
 class OfficialController {
     constructor() {
         this.officialService = new OfficialService();
