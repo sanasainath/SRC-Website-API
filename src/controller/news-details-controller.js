@@ -20,11 +20,43 @@ class NewsController {
         }
     }
 
+    // async createNews(req, res) {
+    //     try {
+    //         const news = await newsService.createNews(req.body);
+    //         res.status(201).json(news);
+    //     } catch (error) {
+    //         res.status(400).json({ message: error.message });
+    //     }
+    // }
     async createNews(req, res) {
         try {
-            const news = await newsService.createNews(req.body);
+            const newsData = req.body;
+            console.log("Req file", req.file);
+    
+            if (req.file) {
+                const filePath = req.file.path;
+    
+                // Read file and convert to Base64
+                try {
+                    const fileBuffer = fs.readFileSync(filePath);
+                    const fileBase64 = fileBuffer.toString('base64');
+    
+                    // Add the Base64 image to newsData
+                    newsData.image = fileBase64;
+    
+                    // Delete the file after converting to Base64
+                    fs.unlinkSync(filePath);
+                } catch (err) {
+                    console.error('Error reading or deleting file:', err);
+                    return res.status(500).json({ message: 'Error processing file' });
+                }
+            }
+    
+            // Create news using the news service
+            const news = await newsService.createNews(newsData);
             res.status(201).json(news);
         } catch (error) {
+            console.error('Error creating news:', error);
             res.status(400).json({ message: error.message });
         }
     }
