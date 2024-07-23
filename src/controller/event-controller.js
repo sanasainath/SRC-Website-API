@@ -1,5 +1,6 @@
 const EventService = require('../services/event-service');
-
+const fs = require('fs');
+const multer = require('multer');
 class EventController {
     constructor() {
         this.eventService = new EventService();
