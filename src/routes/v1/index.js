@@ -32,7 +32,7 @@ const upload = multer({ dest: 'uploads/' }); // Configure multer as needed
 // News routes
 router.get("/news", NewsController.getAllNews);
 router.get("/news/by/:id", NewsController.getNewsById);
-router.post("/create/news",authenticate,authorizeAdmin, NewsController.createNews);
+router.post("/create/news",authenticate,authorizeAdmin, upload.single('image'),NewsController.createNews);
 router.put("/update/news/:id",authenticate,authorizeAdmin, NewsController.updateNews);
 router.delete("/delete/news/:id",authenticate,authorizeAdmin, NewsController.deleteNews);
 
@@ -59,7 +59,7 @@ router.put("/profiles/update/role/:id", authenticate,authorizeAdmin,UserProfileC
 
 
 //event Routes...
-router.post('/events', EventController.createEvent);
+router.post('/events', upload.array('images', 10),EventController.createEvent);
 router.get('/events', EventController.getAllEvents);
 router.get('/events/:id', EventController.getEventById);
 router.put('/events/:id', EventController.updateEvent);
