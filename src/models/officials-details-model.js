@@ -3,7 +3,6 @@ const Schema = mongoose.Schema;
 
 const officialSchema = new Schema({
     name: { type: String, required: true },
-    title: { type: String, required: true },
     photo: { type: String }, // URL to the photo
     email: { type: String, required: true,unique:true },
     phoneNumber: { type: String },
