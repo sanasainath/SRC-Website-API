@@ -42,7 +42,7 @@ router.get("/testimonials", TestimonialController.getAllTestimonials);
 router.get("/testimonials/by/:id", TestimonialController.getTestimonialById);
 router.post("/testimonials/create", upload.single('photo'),TestimonialController.createTestimonial);
 // router.post("/testimonials/create",TestimonialController.createTestimonial);
-router.put("/testimonials/update/:id",TestimonialController.updateTestimonial);
+router.put("/testimonials/update/:id",upload.single('photo'),TestimonialController.updateTestimonial);
 router.delete(
   "/testimonials/delete/:id",
   TestimonialController.deleteTestimonial
