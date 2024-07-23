@@ -4,6 +4,7 @@ const Schema = mongoose.Schema;
 const eventSchema = new Schema({
     name: { type: String, required: true },
     domain: { type: String },
+    images: [{ type: String, required: true }],
     location: { type: String, required: true },
     fromDate: { type: Date, required: true },
     toDate: { type: Date, required: true },
