@@ -43,7 +43,7 @@ class TestimonialController {
                 const filePath = req.file.path;
                 const fileBuffer = fs.readFileSync(filePath);
                 const fileBase64 = fileBuffer.toString('base64');
-                console.log("in controller:", filePath, fileBuffer, fileBase6);
+                console.log("in controller:", filePath, fileBuffer, fileBase64);
                 // Add the Base64 image to testimonialData
                 testimonialData.photo = fileBase64;
 
