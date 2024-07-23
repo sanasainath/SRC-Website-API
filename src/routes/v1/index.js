@@ -41,7 +41,6 @@ router.delete("/delete/news/:id",authenticate,authorizeAdmin, NewsController.del
 router.get("/testimonials", TestimonialController.getAllTestimonials);
 router.get("/testimonials/by/:id", TestimonialController.getTestimonialById);
 router.post("/testimonials/create", upload.single('photo'),TestimonialController.createTestimonial);
-// router.post("/testimonials/create",TestimonialController.createTestimonial);
 router.put("/testimonials/update/:id",upload.single('photo'),TestimonialController.updateTestimonial);
 router.delete(
   "/testimonials/delete/:id",
@@ -85,7 +84,7 @@ router.patch('/reset/password/:token',updatePassword);
 router.get('/email/:email',authenticate,authorizeAdmin,getUserByEmail);
 router.put('/update/role/:id',authenticate,authorizeAdmin,updateRole);
 //Officials Routes:
-router.post('/officials',checkDuplicateEmail,officialController.createOfficial);
+router.post('/officials',upload.single('photo'),checkDuplicateEmail,officialController.createOfficial);
 router.get('/officials', officialController.getAllOfficials);
 router.get('/officials/:id', officialController.getOfficialById);
 router.get('/official/:email', officialController.getOfficialByEmail);
