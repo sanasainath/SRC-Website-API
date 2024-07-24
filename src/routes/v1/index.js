@@ -53,7 +53,7 @@ router.get("/profiles", UserProfileController.getAllUserProfiles);
 router.get("/profiles/:id", UserProfileController.getUserProfileById);
 router.get("/profiles/email/:email", UserProfileController.getUserProfileByEmail);
 router.post("/profiles/create", UserProfileController.createUserProfile);
-router.put("/profiles/update/:id", UserProfileController.updateUserProfile);
+router.put("/profiles/update/:id",upload.single('photo'), UserProfileController.updateUserProfile);
 router.delete("/profiles/delete/:id", UserProfileController.deleteUserProfile);
 router.put("/profiles/update/role/:id", authenticate,authorizeAdmin,UserProfileController.updateUserProfile);
 
