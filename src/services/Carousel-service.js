@@ -9,7 +9,7 @@ class CarouselService {
         try {
             return await this.carouselRepository.create(carouselData);
         } catch (error) {
-            throw new Error(Service error: ${error.message});
+            throw new Error(`Service error: ${error.message}`);
         }
     }
 
@@ -17,7 +17,7 @@ class CarouselService {
         try {
             return await this.carouselRepository.getAll();
         } catch (error) {
-            throw new Error(Service error: ${error.message});
+            throw new Error(`Service error: ${error.message}`);
         }
     }
 
@@ -29,7 +29,7 @@ class CarouselService {
             }
             return carousel;
         } catch (error) {
-            throw new Error(Service error: ${error.message});
+            throw new Error(`Service error: ${error.message}`);
         }
     }
 
@@ -41,7 +41,7 @@ class CarouselService {
             }
             return carousel;
         } catch (error) {
-            throw new Error(Service error: ${error.message});
+            throw new Error(`Service error: ${error.message}`);
         }
     }
 
@@ -53,7 +53,7 @@ class CarouselService {
             }
             return carousel;
         } catch (error) {
-            throw new Error(Service error: ${error.message});
+            throw new Error(`Service error: ${error.message}`);
         }
     }
 }
