@@ -49,28 +49,20 @@ async getUserProfileByEmail(req, res, next) {
   async updateUserProfile(req, res) {
     console.log("in profile controller:",req.params.id,req.body);
     try {
-    
         const profileData = req.body;
         console.log("Req file", req.file);
-
         if (req.file) {
             const filePath = req.file.path;
-
             // Read file and convert to Base64
-            try {
-                const fileBuffer = fs.readFileSync(filePath);
-                const fileBase64 = fileBuffer.toString('base64');
+            const fileBuffer = fs.readFileSync(filePath);
+            const fileBase64 = fileBuffer.toString('base64');
 
-                // Add the Base64 image to newsData
-                profileData.image = fileBase64;
+            // Add the Base64 image to newsData
+            profileData.image = fileBase64;
 
-                // Delete the file after converting to Base64
-                fs.unlinkSync(filePath);
-            } catch (err) {
-                console.error('Error reading or deleting file:', err);
-                return res.status(500).json({ message: 'Error processing file' });
-            }
-      
+            // Delete the file after converting to Base64
+            fs.unlinkSync(filePath);
+        }
       const profile = await userProfileService.updateUserProfile(req.params.id, profileData);
       console.log("in profile controller user:",profile);
       if (!profile) return res.status(404).json({ message: 'UserProfile not found' });
