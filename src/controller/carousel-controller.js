@@ -47,7 +47,20 @@ class CarouselController {
 
     updateCarousel = async (req, res) => {
         try {
-            const carousel = await this.carouselService.updateCarousel(req.params.id, req.body);
+            const carouselData = req.body;
+            console.log("in controller:", carouselData);
+              if (req.file) {
+                const filePath = req.file.path;
+                const fileBuffer = fs.readFileSync(filePath);
+                const fileBase64 = fileBuffer.toString('base64');
+                console.log("in controller:", filePath, fileBuffer, fileBase64);
+                // Add the Base64 image to testimonialData
+                carouselData.image = fileBase64;
+    
+                // Delete the file after converting to Base64
+                fs.unlinkSync(filePath);
+            }
+            const carousel = await this.carouselService.updateCarousel(req.params.id, carouselData);
             return res.status(200).json(carousel);
         } catch (error) {
             return res.status(404).json({ error: error.message });
