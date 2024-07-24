@@ -8,34 +8,17 @@ class CarouselController {
     createCarousel = async (req, res) => {
         try {
             const carouselData = req.body;
-            console.log("req body re",req.body);
-            console.log("Req files", req.files);
-            if (req.files && req.files.length > 0) {
-                // Initialize an array to store Base64 encoded images
-                const imagesBase64 = [];
+            console.log("in controller:", carouselData);
+              if (req.file) {
+                const filePath = req.file.path;
+                const fileBuffer = fs.readFileSync(filePath);
+                const fileBase64 = fileBuffer.toString('base64');
+                console.log("in controller:", filePath, fileBuffer, fileBase64);
+                // Add the Base64 image to testimonialData
+                carouselData.image = fileBase64;
     
-                // Iterate over each file in req.files
-                for (const file of req.files) {
-                    const filePath = file.path;
-    
-                    // Read file and convert to Base64
-                    try {
-                        const fileBuffer = fs.readFileSync(filePath);
-                        const fileBase64 = fileBuffer.toString('base64');
-    
-                        // Add the Base64 image to the array
-                        imagesBase64.push(fileBase64);
-    
-                        // Delete the file after converting to Base64
-                        fs.unlinkSync(filePath);
-                    } catch (err) {
-                        console.error('Error reading or deleting file:', err);
-                        return res.status(500).json({ message: 'Error processing file' });
-                    }
-                }
-    
-                // Add the array of Base64 images to newsData
-                carouselData.image = imagesBase64;
+                // Delete the file after converting to Base64
+                fs.unlinkSync(filePath);
             }
             const carousel = await this.carouselService.createCarousel(carouselData);
             return res.status(201).json(carousel);
