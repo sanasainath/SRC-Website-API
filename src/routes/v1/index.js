@@ -62,7 +62,7 @@ router.put("/profiles/update/role/:id", authenticate,authorizeAdmin,UserProfileC
 router.post('/events', upload.array('images', 10),EventController.createEvent);
 router.get('/events', EventController.getAllEvents);
 router.get('/events/:id', EventController.getEventById);
-router.put('/events/:id', EventController.updateEvent);
+router.put('/events/:id',upload.array('images', 10), EventController.updateEvent);
 router.delete('/events/:id', EventController.deleteEvent);
 
 const userService = new UserService();
