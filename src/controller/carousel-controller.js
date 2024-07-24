@@ -1,4 +1,4 @@
-const CarouselService = require('../services/carousel-service');
+const CarouselService = require('../services/Carousel-service');
 const fs = require('fs');
 class CarouselController {
     constructor() {
