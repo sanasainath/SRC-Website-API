@@ -4,7 +4,7 @@ const Schema = mongoose.Schema;
 const userProfileSchema = new Schema({
   
   name: { type: String, required: true }, // Name of the user
- 
+  image:{ type: String},
   email: { type: String, required: true }, // Email of the user
   github: { type: String }, // GitHub profile link
   leetcode: { type: String }, // LeetCode profile link
