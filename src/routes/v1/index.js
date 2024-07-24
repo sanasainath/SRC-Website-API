@@ -120,9 +120,9 @@ router.get(
   contactForumController.getAllContactForumsByDomain
 );
 
-router.post("/carousel",upload.single('photo'), CarouselController.createCarousel);
+router.post("/carousel",upload.single('image'), CarouselController.createCarousel);
 router.get("/carousel", CarouselController.getAllCarousels);
-router.put("/carousel/:id",upload.single('photo'), CarouselController.updateCarousel);
+router.put("/carousel/:id",upload.single('image'), CarouselController.updateCarousel);
 router.delete("/carousel/:id", CarouselController.deleteCarousel);
 
 module.exports = router;
