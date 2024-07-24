@@ -1,5 +1,5 @@
 const CrudRepository = require('./crud-repository');
-const Carousel = require('../models/carousel-model');
+const Carousel = require('../models/Carousel-model');
 
 class CarouselRepository extends CrudRepository {
     constructor() {
