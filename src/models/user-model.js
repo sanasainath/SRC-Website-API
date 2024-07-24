@@ -16,9 +16,7 @@ const userSchema = new mongoose.Schema({
         type: String,
         required: true
     },
-    image:{
-        type: String,
-    },
+
     userProfile: { type: Schema.Types.ObjectId, ref: 'UserProfile'},
     role: {
         type: String,
