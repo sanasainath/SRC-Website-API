@@ -9,7 +9,7 @@ module.exports={
     UserProfileController:require('./user-profile-controller'),
     EventController:require('./event-controller'),
     LeaderBoardController: require('./leaderboard-controller'),
-
+    CarouselController:require('./carousel-controller'),
 
     
 }
