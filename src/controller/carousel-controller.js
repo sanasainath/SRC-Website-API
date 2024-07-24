@@ -35,7 +35,7 @@ class CarouselController {
                 }
     
                 // Add the array of Base64 images to newsData
-                carouselData.images = imagesBase64;
+                carouselData.image = imagesBase64;
             }
             const carousel = await this.carouselService.createCarousel(carouselData);
             return res.status(201).json(carousel);
