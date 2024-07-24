@@ -1,0 +1,10 @@
+const CrudRepository = require('./crud-repository');
+const Carousel = require('../models/carousel-model');
+
+class CarouselRepository extends CrudRepository {
+    constructor() {
+        super(Carousel);
+    }
+}
+
+module.exports = CarouselRepository;
