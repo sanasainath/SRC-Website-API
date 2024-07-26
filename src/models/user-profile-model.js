@@ -17,6 +17,7 @@ const userProfileSchema = new Schema({
   eventsParticipated: [{ type: Schema.Types.ObjectId, ref: 'Event' }],
   userId: { type: Schema.Types.ObjectId, ref: 'User',required:true }, // Events participated in SRC
   role: {type: String, enum: ['user', 'admin', 'Coordinator'], default: 'user'},
+  isCr : {type : Boolean, default: false},
   domain:{type: Schema.Types.ObjectId, ref:'Domain', required : false},
 }, { timestamps: true });
 
