@@ -23,6 +23,7 @@ const userSchema = new mongoose.Schema({
         enum: ['user', 'admin', 'Coordinator'],
         default: 'user'
     },
+    isCr : {type : Boolean, default: false},
     domain:{
         type: Schema.Types.ObjectId, ref:'Domain',
         required : false
