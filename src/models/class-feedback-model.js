@@ -3,9 +3,9 @@ const Schema = mongoose.Schema;
 
 const classFeedbackSchema = new Schema(
   {
-    id: { type: String, required: true },
-    year: { type: String, required: true },
-    section: { type: String, required: true },
+    id: { type: String},
+    year: { type: String },
+    section: { type: String },
     date: { type: Date, default: Date.now() },
     remarks: { type: String },
     periodDetails: [
