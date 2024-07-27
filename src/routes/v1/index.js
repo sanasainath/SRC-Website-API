@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const {officialController,domainController,resourceController,projectController,contactForumController,NewsController,TestimonialController,UserProfileController,EventController,CarouselController} = require('../../controller/index.js');
+const {officialController,domainController,resourceController,projectController,contactForumController,NewsController,TestimonialController,UserProfileController,EventController,CarouselController,ClassFeedbackController} = require('../../controller/index.js');
 const checkDuplicateEmail = require('../../middlewares/checkDuplicateEmail');
 const { signup,login,verify,passwordResetLink,updatePassword,getUserByEmail,updateRole} =require('../../controller/user-controller.js');
 const {UserService}=require('../../services/index.js');
@@ -124,5 +124,9 @@ router.post("/carousel",upload.single('image'), CarouselController.createCarouse
 router.get("/carousel", CarouselController.getAllCarousels);
 router.put("/carousel/:id",upload.single('image'), CarouselController.updateCarousel);
 router.delete("/carousel/:id", CarouselController.deleteCarousel);
+
+router.post("/CR/feedback", ClassFeedbackController.createFeedback);
+router.get("/CR/feedbacks", ClassFeedbackController.getAllFeedbacks);
+
 
 module.exports = router;
