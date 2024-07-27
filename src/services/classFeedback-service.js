@@ -24,7 +24,7 @@ class ClassFeedbackService {
     const query = {};
     console.log(date, year, section);
     if (date) {
-      query.date = { $gte: new Date(date) }; // Assuming you want feedback from the given date onwards
+      query.date = date; // Assuming you want feedback from the given date onwards
     }
     if (year) {
       query.year = year;
