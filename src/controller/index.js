@@ -10,6 +10,6 @@ module.exports={
     EventController:require('./event-controller'),
     LeaderBoardController: require('./leaderboard-controller'),
     CarouselController:require('./carousel-controller'),
-
+    ClassFeedbackController:require('./classFeedback-controller'),
     
 }
