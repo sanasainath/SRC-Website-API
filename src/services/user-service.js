@@ -103,7 +103,14 @@ class UserService {
     }
   }
 
-  
+  async updateDetails(userId, data){
+   try {
+      const response = await this.userRepository.update(userId, data); 
+      return response;
+    } catch (error) {
+      throw error;
+    }
+  }
   async sendResetLink(email) {
     console.log("reset link:",email);
     try {
