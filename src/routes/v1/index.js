@@ -192,6 +192,7 @@ router.delete("/resource/:id", authenticate, authorizeAdmin, (req, res) =>
 //Project Routes
 router.post(
   "/project",
+  upload.single("image"),
   authenticate,
   authorizeAdmin,
   projectController.createProject
