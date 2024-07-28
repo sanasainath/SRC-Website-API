@@ -160,7 +160,25 @@ const updatePassword = async (req, res) => {
     });
   }
 };
-
+const updateDetails = async (req, res) => {
+  try {
+    const userData = req.body;
+    const response = await userService.updateDetails(req.params.token, userData);
+    return res.status(201).json({
+      success: true,
+      err: {},
+      data: response,
+      message: response.message
+    });
+  } catch (error) {
+    return res.status(500).json({
+      success: false,
+      message: 'Something went wrong',
+      data: {},
+      err: error.message
+    });
+  }
+};
 module.exports = {
   signup,
   login,
@@ -168,5 +186,6 @@ module.exports = {
   passwordResetLink,
   updatePassword,
     getUserByEmail,
+    updateDetails,
     updateRole
 };
