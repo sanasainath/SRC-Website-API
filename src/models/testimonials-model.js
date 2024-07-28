@@ -28,7 +28,8 @@ const testimonialSchema = new mongoose.Schema({
     required: true
   },
   photo: {
-    type: String // URL to the photo
+    type: String ,// URL to the photo
+    required:true
   },
   email: {
     type: String // Optional

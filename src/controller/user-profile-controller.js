@@ -49,6 +49,7 @@ async getUserProfileByEmail(req, res, next) {
   async updateUserProfile(req, res) {
     console.log("in profile controller:",req.params.id,req.body);
     try {
+
         const profileData = req.body;
         console.log("Req file", req.file);
         if (req.file) {
@@ -65,6 +66,13 @@ async getUserProfileByEmail(req, res, next) {
         }
       const profile = await userProfileService.updateUserProfile(req.params.id, profileData);
       console.log("in profile controller user:",profile);
+
+      const updateuser=req.body;
+      if (req.file) {
+        updateuser.photo = process.env.APP_API + '/public/images/' + req.file.filename;
+    }
+      const profile = await userProfileService.updateUserProfile(req.params.id,updateuser);
+
       if (!profile) return res.status(404).json({ message: 'UserProfile not found' });
       res.status(200).json(profile);
     } catch (error) {

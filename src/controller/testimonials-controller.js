@@ -36,6 +36,7 @@ class TestimonialController {
 
     async createTestimonial(req, res) {
         try {
+
             const testimonialData = req.body;
             console.log("Req file", req.file);
 
@@ -53,6 +54,15 @@ class TestimonialController {
 
             const testimonial = await testimonialService.createTestimonial(testimonialData);
             console.log("in controller test:", testimonial);
+
+
+            const testimonialData=req.body;
+            console.log("Req file",req.file);
+            if (req.file) {
+                testimonialData.photo = process.env.APP_API + '/public/images/' + req.file.filename;
+            }
+            const testimonial = await testimonialService.createTestimonial(testimonialData);
+            // co testimonial = await testimonialService.createTestimonial(req.body);
 
             res.status(201).json(testimonial);
         } catch (error) {

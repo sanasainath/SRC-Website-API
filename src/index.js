@@ -10,7 +10,7 @@ app.use(cors()); // Use the CORS middleware
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
-
+app.use('/public/images', express.static('public/images'));
 const apiRoutes = require("./routes/index");
 
 const { connect } = require("./config/database");

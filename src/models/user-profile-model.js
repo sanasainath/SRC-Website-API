@@ -8,6 +8,7 @@ const userProfileSchema = new Schema({
   email: { type: String, required: true }, // Email of the user
   github: { type: String }, // GitHub profile link
   leetcode: { type: String }, // LeetCode profile link
+  photo:{type:String},
   hackerrank: { type: String }, // HackerRank profile link
   gfg: { type: String }, // GeeksforGeeks profile link
   linkedin: { type: String }, // LinkedIn profile link
