@@ -152,7 +152,7 @@ router.get("/verify/:token", verify);
 router.get("/forgot/password/:email", passwordResetLink);
 router.patch("/reset/password/:token", updatePassword);
 router.get("/email/:email", authenticate, authorizeAdmin, getUserByEmail);
-router.put("/update/details/:id", updateDetails);
+router.put("/update/details/:token", updateDetails);
 router.put("/update/role/:id", authenticate, authorizeAdmin, updateRole);
 //Officials Routes:
 router.post(
