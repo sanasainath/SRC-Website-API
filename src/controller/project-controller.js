@@ -1,5 +1,6 @@
 const ProjectService = require('../services/project-service');
-
+const fs = require('fs');
+const multer = require('multer');
 class ProjectController {
     constructor() {
         this.projectService = new ProjectService();
