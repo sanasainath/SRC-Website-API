@@ -20,10 +20,28 @@ class UserProfileService {
       throw new Error(`Service error: ${error.message}`);
     }
   }
+  
+  async getUserProfileByEmail(email) {
+    console.log(email);
+    try {
+      const profile = await userProfileRepository.findBy({email});
+      console.log("user profile:",profile);
+      if (!profile) {
+        // throw new Error('UserProfile not found');
+        return { message: 'User not Found'};
+      }
+      return profile;
+    } catch (error) {
+      throw new Error(`Service error: ${error.message}`);
+    }
+  }
 
   async updateUserProfile(id, updateData) {
+    console.log("in profile service:",id,updateData);
     try {
       const profile = await userProfileRepository.update(id, updateData);
+      console.log("in profile service user:",profile);
+      
       if (!profile) {
         throw new Error('UserProfile not found');
       }

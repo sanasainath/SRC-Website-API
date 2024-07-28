@@ -14,7 +14,7 @@ class ProjectService {
             if (!domain) {
                 throw new Error('Domain not found');
             }
-            domain.projects.push(newResource._id);
+            domain.projects.push(project._id);
             await domain.save();
             return project;
         } catch (error) {

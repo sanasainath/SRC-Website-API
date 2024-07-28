@@ -4,10 +4,18 @@ const Schema = mongoose.Schema;
 const eventSchema = new Schema({
     name: { type: String, required: true },
     domain: { type: String },
+    images: [{ type: String, required: true }],
     location: { type: String, required: true },
-    date: { type: Date, required: true },
+    fromDate: { type: Date, required: true },
+    toDate: { type: Date, required: true },
+    startTime : {type : String, required : true},
+    endTime : {type : String, required : true},
+    prizeDetails : [{position: Number, description : String}],
     description: { type: String, required: true },
-    coordinators: [{ type: Schema.Types.ObjectId, ref: 'User', required: true }],
+    coordinators: [{
+      id: { type: Schema.Types.ObjectId, ref: 'User', required: false },
+      email: { type: String }
+    }],
     registrationLink: { type: String },
     isUpcoming: { type: Boolean, default: true },
     summary: { type: String },

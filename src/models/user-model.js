@@ -16,11 +16,17 @@ const userSchema = new mongoose.Schema({
         type: String,
         required: true
     },
+
     userProfile: { type: Schema.Types.ObjectId, ref: 'UserProfile'},
     role: {
         type: String,
-        enum: ['user', 'admin'],
+        enum: ['user', 'admin', 'Coordinator'],
         default: 'user'
+    },
+    isCr : {type : Boolean, default: false},
+    domain:{
+        type: Schema.Types.ObjectId, ref:'Domain',
+        required : false
     },
     isVerified: {
         type: Boolean,
