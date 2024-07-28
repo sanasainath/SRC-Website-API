@@ -48,18 +48,6 @@ class CrudRepository {
       throw { error };
     }
   }
-  //   async getFeedbackByQuery({ date, year, section }) {
-  //     try {
-  //       const response = await this.model.find({
-  //         date: date,
-  //         year: year,
-  //         section: section,
-  //       });
-  //       return response;
-  //     } catch (error) {
-  //       throw { error };
-  //     }
-  //   }
 
   async update(id, data) {
     console.log("in repo:", id, data);

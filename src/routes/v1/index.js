@@ -239,5 +239,6 @@ router.delete("/carousel/:id", CarouselController.deleteCarousel);
 router.post("/CR/feedback", ClassFeedbackController.createFeedback);
 router.get("/allFeedbacks", ClassFeedbackController.getAllFeedbacks);
 router.get("/feedback", ClassFeedbackController.getFeedbacksByFilter);
+router.get("/feedbacks", ClassFeedbackController.getAllCollectionsData);
 
 module.exports = router;

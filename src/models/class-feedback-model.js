@@ -6,7 +6,7 @@ const classFeedbackSchema = new Schema(
     id: { type: String, required: true },
     year: { type: String, required: true },
     section: { type: String, required: true },
-    date: { type: Date, default: Date.now() },
+    date: { type: String },
     remarks: { type: String },
     periodDetails: [
       {

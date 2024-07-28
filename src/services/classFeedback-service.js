@@ -24,7 +24,7 @@ class ClassFeedbackService {
     const query = {};
     console.log(date, year, section);
     if (date) {
-      query.date = { $gte: new Date(date) }; // Assuming you want feedback from the given date onwards
+      query.date = date; // Assuming you want feedback from the given date onwards
     }
     if (year) {
       query.year = year;
@@ -38,6 +38,23 @@ class ClassFeedbackService {
     } catch (e) {
       console.log(e);
       throw new Error(`Service error: ${e.message}`);
+    }
+  }
+  async getAllCollectionsData(date, year, section) {
+    const filter = {};
+    if (date) {
+      filter.date = date;
+    }
+    if (year) {
+      filter.year = year;
+    }
+    if (section) {
+      filter.section = section;
+    }
+    try {
+      return await this.classFeedbackRepository.getAllCollectionsData(filter);
+    } catch (error) {
+      throw new Error(`Service error: ${error.message}`);
     }
   }
 }
